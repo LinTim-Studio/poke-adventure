@@ -12,18 +12,30 @@ import pokeAdventure.Main;
 public class Menu extends BasicGameState {
 
 	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		
+	public void init(GameContainer container, StateBasedGame game) throws SlickException 
+	{
+		MenuButton newGame = new MenuButton();
+		MenuButton laden = new MenuButton();
+		MenuButton optionen= new MenuButton();
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
+	{
 		g.setColor(Color.green);
 		g.fillRect(0, 0, container.getScreenWidth(), container.getScreenHeight());
+		
+		newGame.zeichneButton();
+		laden.zeichneButton();
+		optionen.zeichneButton();
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException 
+	{
+		newGame.update();
+		laden.update();
+		optionen.update();
 	}
 
 	@Override
