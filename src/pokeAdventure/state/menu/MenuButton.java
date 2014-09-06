@@ -6,36 +6,36 @@ import pokeAdventure.interfaces.Action;
 
 public class MenuButton 
 {
-	public float X ;
-	public float Y ;
+	public int y ;
+	public int x ;
 	public Image Bild;
 	
 	public Action event;
 	//public Image Bild2;
 	
 	
-	public MenuButton(float koorX, float koorY,Image pic)
+	public MenuButton(int koorX, int koorY,Image pic, Action aktion)
 	{
-		X=koorX;
-		Y=koorY;
+		x=koorX;
+		y=koorY;
 		Bild=pic;
+		event=aktion;
 	}
 	
 	public void zeichneButton()
 	{
-		Bild.draw(X,Y);
+		Bild.draw(x,y);
 	}
 	
-	public void buttonClick(float mx,float my)
+	public void buttonClick(int mx,int my)
 	{
 		if(this.clicked(mx,my))
-			this.event();
-			
+			this.event.action();
 	}
 	
-	public boolean clicked(float mx, float my)
+	public boolean clicked(int mx, int my)
 	{
-		if((mx>X)&&(mx<X+(float) Bild.getHeight())&&(my>Y)&&(my<Y+(float) Bild.getWidth()))
+		if((mx>x)&&(mx<x+ Bild.getHeight())&&(my>y)&&(my<y+ Bild.getWidth()))
 			return true;
 		else
 			return false;
