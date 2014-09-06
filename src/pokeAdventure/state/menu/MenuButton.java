@@ -45,7 +45,7 @@ public class MenuButton {
 	}
 
 	public boolean istUeber(int mx, int my) {
-		if ((mx > x) && (mx < x + bild.getHeight()) && (my > y) && (my < y + bild.getWidth()))
+		if ((mx > x) && (mx < x + bild.getWidth()) && (my > y) && (my < y + bild.getHeight()))
 			return true;
 		else
 			return false;
