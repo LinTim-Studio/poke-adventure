@@ -7,6 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.Image;
 
 import pokeAdventure.Main;
 import pokeAdventure.interfaces.Action;
@@ -24,6 +25,7 @@ public class Menu extends BasicGameState {
 				System.out.println("Neues Spiel!");
 			}
 		});
+		
 //		MenuButton laden = new MenuButton();
 //		MenuButton optionen= new MenuButton();
 	}
@@ -33,6 +35,9 @@ public class Menu extends BasicGameState {
 	{
 		g.setColor(Color.green);
 		g.fillRect(0, 0, container.getScreenWidth(), container.getScreenHeight());
+		
+		Image back= new Image("res/menu/menuHintergrund.png");
+		back.draw(0,0);
 		
 		newGame.zeichneButton();
 //		laden.zeichneButton();
@@ -45,7 +50,7 @@ public class Menu extends BasicGameState {
 		Input in = container.getInput();
 		int x = in.getMouseX();
 		int y = in.getMouseY();
-		boolean mouseDown = in.isMouseButtonDown(0);
+		boolean mouseDown = in.isMousePressed(0);
 		newGame.update(x, y, mouseDown);
 //		laden.update();
 //		optionen.update();
