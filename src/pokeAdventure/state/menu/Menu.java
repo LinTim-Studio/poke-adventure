@@ -15,19 +15,34 @@ import pokeAdventure.interfaces.Action;
 public class Menu extends BasicGameState {
 	
 	MenuButton newGame;
+	MenuButton laden;
+	MenuButton optionen;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException 
 	{
-		newGame = new MenuButton(100, 100, "res/menu/neuesSpiel.png", "res/menu/neuesSpielHighlight.png", new Action() {
+		newGame = new MenuButton(327, 150, "res/menu/neuesSpiel.png", "res/menu/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
 				System.out.println("Neues Spiel!");
 			}
 		});
 		
-//		MenuButton laden = new MenuButton();
-//		MenuButton optionen= new MenuButton();
+		laden = new MenuButton(327, 210, "res/menu/neuesSpiel.png", "res/menu/neuesSpielHighlight.png", new Action(){
+			@Override
+			public void action()
+			{
+				System.out.println("Laden!");
+			}
+		});
+		
+		optionen = new MenuButton(327, 270, "res/menu/neuesSpiel.png", "res/menu/neuesSpielHighlight.png", new Action(){
+			@Override
+			public void action()
+			{
+				System.out.println("Optionen!");
+			}
+		});
 	}
 
 	@Override
@@ -40,8 +55,8 @@ public class Menu extends BasicGameState {
 		back.draw(0,0);
 		
 		newGame.zeichneButton();
-//		laden.zeichneButton();
-//		optionen.zeichneButton();
+		laden.zeichneButton();
+		optionen.zeichneButton();
 	}
 
 	@Override
@@ -52,8 +67,8 @@ public class Menu extends BasicGameState {
 		int y = in.getMouseY();
 		boolean mouseDown = in.isMousePressed(0);
 		newGame.update(x, y, mouseDown);
-//		laden.update();
-//		optionen.update();
+		laden.update(x,y,mouseDown);
+		optionen.update(x,y,mouseDown);
 	}
 
 	@Override
