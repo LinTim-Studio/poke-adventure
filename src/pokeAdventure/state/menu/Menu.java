@@ -1,5 +1,6 @@
 package pokeAdventure.state.menu;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -7,6 +8,9 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.HorizontalSplitTransition;
+import org.newdawn.slick.state.transition.SelectTransition;
+import org.newdawn.slick.state.transition.VerticalSplitTransition;
 
 import pokeAdventure.Main;
 import pokeAdventure.interfaces.Action;
@@ -20,7 +24,7 @@ public class Menu extends BasicGameState {
 	Image back;
 
 	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+	public void init(GameContainer container, final StateBasedGame game) throws SlickException {
 		// Hintergrundbild laden
 		back = new Image("res/menu/menuHintergrund.png");
 		
@@ -40,14 +44,15 @@ public class Menu extends BasicGameState {
 		laden = new MenuButton(x, y + dy, "res/menu/neuesSpiel.png", "res/menu/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
-				System.out.println("Laden!");
+//				game.enterState(Main.ladenID);
+				game.enterState(Main.ladenID, new HorizontalSplitTransition(Color.green), new VerticalSplitTransition(Color.green));
 			}
 		});
 
 		optionen = new MenuButton(x, y + 2 * dy, "res/menu/neuesSpiel.png", "res/menu/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
-				System.out.println("Optionen!");
+				game.enterState(Main.optionenID, null, new SelectTransition(Color.darkGray));
 			}
 		});
 
