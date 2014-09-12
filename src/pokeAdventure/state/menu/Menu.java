@@ -38,6 +38,7 @@ public class Menu extends BasicGameState {
 			@Override
 			public void action() {
 				System.out.println("Neues Spiel!");
+				game.enterState(Main.gameStartID, null, new SelectTransition(Color.darkGray));
 			}
 		});
 
