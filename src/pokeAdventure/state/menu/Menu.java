@@ -26,6 +26,7 @@ public class Menu extends BasicGameState {
 	@Override
 	public void init(GameContainer container, final StateBasedGame game) throws SlickException {
 		// Hintergrundbild laden
+<<<<<<< HEAD
 		back = new Image("res/menu/Titelbild2.png");
 		
 		// ein gemeinsames x für alle buttons
@@ -51,6 +52,33 @@ public class Menu extends BasicGameState {
 		});
 
 		optionen = new MenuButton(x, y + 2 * dy, "res/menu/neuesSpiel.png", "res/menu/neuesSpielHighlight.png", new Action() {
+=======
+		back = new Image("res/menu/Titelbild2.0.png");
+		
+		// ein gemeinsames x für alle buttons
+		int x = container.getWidth() / 2;
+		// der Startwert für die y Richtung
+		int y = container.getHeight() / 3;
+		// Der zu addierende Wert pro button
+		int dy = (int) (container.getHeight() / 7.5); // 60
+		newGame = new MenuButton(x, y, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
+			@Override
+			public void action() {
+				System.out.println("Neues Spiel!");
+				game.enterState(Main.gameStartID, null, new SelectTransition(Color.darkGray));
+			}
+		});
+
+		laden = new MenuButton(x, y + dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
+			@Override
+			public void action() {
+//				game.enterState(Main.ladenID);
+				game.enterState(Main.ladenID, new HorizontalSplitTransition(Color.green), new VerticalSplitTransition(Color.green));
+			}
+		});
+
+		optionen = new MenuButton(x, y + 2 * dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
+>>>>>>> branch 'develop' of https://github.com/LinTim-Studio/poke-adventure
 			@Override
 			public void action() {
 				game.enterState(Main.optionenID, null, new SelectTransition(Color.darkGray));
