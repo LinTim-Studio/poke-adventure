@@ -26,7 +26,7 @@ public class Menu extends BasicGameState {
 	@Override
 	public void init(GameContainer container, final StateBasedGame game) throws SlickException {
 		// Hintergrundbild laden
-		back = new Image("res/menu/Titelbild2.png");
+		back = new Image("res/menu/Titelbild2.0.png");
 		
 		// ein gemeinsames x für alle buttons
 		int x = container.getWidth() / 2;
@@ -34,7 +34,7 @@ public class Menu extends BasicGameState {
 		int y = container.getHeight() / 3;
 		// Der zu addierende Wert pro button
 		int dy = (int) (container.getHeight() / 7.5); // 60
-		newGame = new MenuButton(x, y, "res/menu/neuesSpiel.png", "res/menu/neuesSpielHighlight.png", new Action() {
+		newGame = new MenuButton(x, y, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
 				System.out.println("Neues Spiel!");
@@ -42,7 +42,7 @@ public class Menu extends BasicGameState {
 			}
 		});
 
-		laden = new MenuButton(x, y + dy, "res/menu/neuesSpiel.png", "res/menu/neuesSpielHighlight.png", new Action() {
+		laden = new MenuButton(x, y + dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
 //				game.enterState(Main.ladenID);
@@ -50,7 +50,7 @@ public class Menu extends BasicGameState {
 			}
 		});
 
-		optionen = new MenuButton(x, y + 2 * dy, "res/menu/neuesSpiel.png", "res/menu/neuesSpielHighlight.png", new Action() {
+		optionen = new MenuButton(x, y + 2 * dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
 				game.enterState(Main.optionenID, null, new SelectTransition(Color.darkGray));
