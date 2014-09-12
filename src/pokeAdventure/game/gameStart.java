@@ -37,7 +37,7 @@ public class gameStart extends BasicGameState {
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
 		
-		t.drawString(40, 40, "Willkommen zu Pokemon ... ");
+		t.drawString(40, 40, "Willkommen zu Pokemon ...");
 	}
 
 	@Override
