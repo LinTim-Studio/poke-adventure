@@ -30,7 +30,7 @@ public class Menu extends BasicGameState {
 	@Override
 	public void init(GameContainer container, final StateBasedGame game) throws SlickException {
 		// Hintergrundbild laden
-		back = new Image("res/menu/Titelbild2.png");
+		back = new Image("res/menu/menu.png");
 		
 		// ein gemeinsames x für alle buttons
 		int x = container.getWidth() / 2;
