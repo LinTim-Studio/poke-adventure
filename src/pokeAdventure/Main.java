@@ -1,5 +1,8 @@
 package pokeAdventure;
 
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.ScalableGame;
@@ -7,11 +10,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.StateBasedGame;
 
+import pokeAdventure.game.gameStart;
 import pokeAdventure.state.Ladebildschirm;
 import pokeAdventure.state.menu.Menu;
 import pokeAdventure.state.menu.MenuLaden;
 import pokeAdventure.state.menu.Optionen;
-import pokeAdventure.game.gameStart;
 import pokeAdventure.util.error.Fehlermelder;
 
 /**
@@ -42,10 +45,7 @@ public class Main extends StateBasedGame {
 	/**
 	 * Die Maße des Standartbildschirms
 	 */
-	private static final int defWIDTH = 800, defHEIGHT = defWIDTH / 16 * 9; // 16
-																			// :
-																			// 9
-																			// Verhältnis
+	private static final int defWIDTH = 800, defHEIGHT = defWIDTH / 16 * 9; // 16 : 9
 
 	/**
 	 * Die main-Methode des Spiels
@@ -55,11 +55,12 @@ public class Main extends StateBasedGame {
 	 */
 	public static void main(String[] args) {
 		try {
-			// Scalable funktioniert noch nicht so wie ich dachte ...
-			AppGameContainer app = new AppGameContainer(new ScalableGame(new Main(), defWIDTH, defHEIGHT, true));
+			ScalableGame game = new ScalableGame(new Main(), defWIDTH, defHEIGHT, true);
+			AppGameContainer app = new AppGameContainer(game);
+			// AppGameContainer app = new AppGameContainer(new Main());
 			initApp(app);
 			app.start();
-		} catch (SlickException e) {
+		} catch (Exception e) {
 			Fehlermelder.melde(e, "Fehler beim starten!");
 			Fehlermelder.crash();
 		}
@@ -70,28 +71,53 @@ public class Main extends StateBasedGame {
 	 * 
 	 * @throws SlickException
 	 *             Bei Fehler in DisplayMode
+	 * @throws LWJGLException
 	 */
-	private static void initApp(AppGameContainer app) throws SlickException {
+	private static void initApp(AppGameContainer app) throws SlickException, LWJGLException {
+		GameContainer.enableSharedContext();
 		// Nur zu Debug Zwecken
 		if (debug) {
 			app.setVerbose(true);
 			app.setShowFPS(true);
 		}
 		// Da die Karte alles bedeckt, können wir einfahc übermalen
-		app.setClearEachFrame(false);
+		app.setClearEachFrame(true);
 		// Die gewünschet FPS Rate
 		app.setTargetFrameRate(FPS);
 		// Damit wir nicht zuviel rendern
 		app.setVSync(true);
 		// Muss noch überarbeitete werden
-		app.setDisplayMode(defWIDTH, defHEIGHT, false);
+		// app.setDisplayMode(defWIDTH, defHEIGHT, false);
+
+		DisplayMode chosen = null;
+		DisplayMode desktopMode = Display.getDesktopDisplayMode();
+		if (desktopMode.isFullscreenCapable())
+			chosen = desktopMode;
+		else
+			for (DisplayMode mode : Display.getAvailableDisplayModes()) {
+				if (mode.isFullscreenCapable()) {
+					if (desktopMode.getWidth() >= mode.getWidth() && desktopMode.getHeight() >= mode.getHeight()) {
+						if (mode.getWidth() / mode.getHeight() == desktopMode.getWidth() / desktopMode.getHeight()) {
+							if (chosen == null)
+								chosen = mode;
+							else {
+								if (chosen.getWidth() < mode.getWidth() && chosen.getHeight() < mode.getHeight())
+									chosen = mode;
+							}
+						}
+					}
+				}
+			}
+		if (chosen != null) {
+			app.setDisplayMode(chosen.getWidth(), chosen.getHeight(), false);
+		} else {
+			Fehlermelder.melde("Kein passendes Display gefunden!");
+		}
+
 	}
 
 	/**
 	 * Erstellt ein neues StateBasedGame
-	 * 
-	 * @param name
-	 *            Der Name des Spiels
 	 */
 	public Main() {
 		super(TITLE);
@@ -99,7 +125,8 @@ public class Main extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		// Alle Dateien sollen nacheinander geladen werden, macht SInn bei vielen Dateien
+		// Alle Dateien sollen nacheinander geladen werden, macht Sinn bei
+		// vielen Dateien
 		LoadingList.setDeferredLoading(true);
 		// Alle states gemäß ihrer ID hinzufügen
 		this.addState(new Ladebildschirm());
@@ -107,8 +134,16 @@ public class Main extends StateBasedGame {
 		this.addState(new MenuLaden());
 		this.addState(new Optionen());
 		this.addState(new gameStart());
-		
+
 		this.enterState(ladebildschirm);
+	}
+
+	public static int getWidth() {
+		return defWIDTH;
+	}
+
+	public static int getHeight() {
+		return defHEIGHT;
 	}
 
 }

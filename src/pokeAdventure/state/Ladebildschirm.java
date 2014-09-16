@@ -27,8 +27,8 @@ public class Ladebildschirm extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		int width = container.getWidth();
-		int height = container.getHeight();
+		int width = Main.getWidth();
+		int height = Main.getHeight();
 		g.setColor(bg);
 		g.fillRect(0, 0, width, height);
 

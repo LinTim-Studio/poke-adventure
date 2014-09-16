@@ -1,5 +1,7 @@
 package pokeAdventure.state.menu;
 
+import org.lwjgl.opengl.Display;
+import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,7 +14,6 @@ import org.newdawn.slick.state.transition.CombinedTransition;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.state.transition.HorizontalSplitTransition;
-import org.newdawn.slick.state.transition.SelectTransition;
 import org.newdawn.slick.state.transition.VerticalSplitTransition;
 
 import pokeAdventure.Main;
@@ -24,20 +25,20 @@ public class Menu extends BasicGameState {
 	MenuButton newGame;
 	MenuButton laden;
 	MenuButton optionen;
-	
+
 	Image back;
 
 	@Override
-	public void init(GameContainer container, final StateBasedGame game) throws SlickException {
+	public void init(final GameContainer container, final StateBasedGame game) throws SlickException {
 		// Hintergrundbild laden
 		back = new Image("res/menu/menu.png");
-		
+
 		// ein gemeinsames x für alle buttons
-		int x = container.getWidth() / 2;
+		int x = Main.getWidth() / 2;
 		// der Startwert für die y Richtung
-		int y = container.getHeight() / 3;
+		int y = Main.getHeight() / 3;
 		// Der zu addierende Wert pro button
-		int dy = (int) (container.getHeight() / 7.5); // 60
+		int dy = (int) (Main.getHeight() / 7.5); // 60
 
 		newGame = new MenuButton(x, y, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
 			@Override
@@ -57,14 +58,18 @@ public class Menu extends BasicGameState {
 		laden = new MenuButton(x, y + dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
-//				game.enterState(Main.ladenID);
 				game.enterState(Main.ladenID, new HorizontalSplitTransition(Color.green), new VerticalSplitTransition(Color.green));
 			}
 		});
+		// tempörär zum Vollbildwechsel-Button missbraucht :)
 		optionen = new MenuButton(x, y + 2 * dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
-				game.enterState(Main.optionenID, null, new SelectTransition(Color.darkGray));
+				try {
+					container.setFullscreen(!container.isFullscreen());
+				} catch (SlickException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -76,7 +81,7 @@ public class Menu extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		// füllt automatisch den ganzen Bildschirm
-		back.draw(0, 0, container.getWidth(), container.getHeight());
+		back.draw(0, 0, Main.getWidth(), Main.getHeight());
 
 		newGame.zeichneButton();
 		laden.zeichneButton();
@@ -89,7 +94,7 @@ public class Menu extends BasicGameState {
 		int x = in.getMouseX();
 		int y = in.getMouseY();
 		boolean mouseDown = in.isMousePressed(0);
-		
+
 		newGame.update(x, y, mouseDown);
 		laden.update(x, y, mouseDown);
 		optionen.update(x, y, mouseDown);
