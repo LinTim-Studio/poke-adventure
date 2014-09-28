@@ -5,6 +5,7 @@ import java.awt.Font;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
@@ -20,7 +21,7 @@ public class gameStart extends BasicGameState {
 	public void init(GameContainer container, final StateBasedGame game) throws SlickException {
 		// soll nur einmal aufgerufen werden
 		if (t == null) {
-			Font font = new Font("Verdana", Font.BOLD, 32);
+			Font font = new Font("Lucida Handwriting", Font.BOLD, 20);
 			t = new TrueTypeFont(font, false);
 		}
 	}
@@ -28,10 +29,12 @@ public class gameStart extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
-		g.setColor(Color.gray);
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
+		g.drawImage(new Image("res/gameStart/Papierbg.png"), 0, 0);
 
-		t.drawString(40, 40, "Willkommen zu Pokemon ...");
+		t.drawString(40, 40, "Willkommen in der Welt der Pokemon! Mein Name ist ... .");
+		//g.drawImage(new Image("res/gameStart/Papierbg.png", ), x, y);
+		t.drawString(40, 80, "Aber jeder nennt mich den Pokemon Prfofessor.");
 	}
 
 	@Override
