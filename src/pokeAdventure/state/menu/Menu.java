@@ -1,7 +1,5 @@
 package pokeAdventure.state.menu;
 
-import org.lwjgl.opengl.Display;
-import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
