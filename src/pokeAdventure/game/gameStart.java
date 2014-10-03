@@ -88,7 +88,7 @@ public class gameStart extends BasicGameState {
 			// Pokemon Bild einfgen
 			break;
 		case 5:
-			write("Unsere Welt ist bev\u00FClkert von Wesen, die als Pokemon bekannnt sind.");
+			write("Unsere Welt ist bev\u00F6lkert von Wesen, die als Pokemon bekannnt sind.");
 			break;
 		case 6:
 			write("Wir Menschen leben friedlich mit den Pokemon zusammen, sowohl als Freunde, als auch als Arbeitspartner.");
@@ -100,7 +100,7 @@ public class gameStart extends BasicGameState {
 			write("Obwohl wir so viel mit Pokemon zu tun haben, wissen wir nicht alles \u00FCber sie.");
 			break;
 		case 9:
-			write("Stattdessen gibts es viele Geheimnisse ueber Pokemon.");
+			write("Stattdessen gibts es viele Geheimnisse \u00FCber Pokemon.");
 			break;
 		case 10:
 			write("Ich versuche die Pokemon zu erforschen um die letzten Geheimnisse \u00FCber sie aufzudecken.");
@@ -118,7 +118,7 @@ public class gameStart extends BasicGameState {
 			text.render(container, g);
 			break;
 		case 14:
-			write("Schön dich kennenzulernen "+name+".");
+			write("Sch\u00F6n dich kennenzulernen "+name+".");
 			break;
 		}
 	}
@@ -143,7 +143,6 @@ public class gameStart extends BasicGameState {
 		if ((fort == 13)&&(mouseDown)&&(text.getText()!=null)) {
 			name=text.getText();
 			fort++;
-			return;
 		}
 
 	}
