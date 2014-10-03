@@ -22,6 +22,7 @@ public class gameStart extends BasicGameState {
 	private static MenuButton junge;
 	@SuppressWarnings("unused")
 	private static MenuButton maedchen;
+	private static String geschlecht;
 
 	@Override
 	public void init(GameContainer container, final StateBasedGame game) throws SlickException {
@@ -30,15 +31,23 @@ public class gameStart extends BasicGameState {
 			Font font = new Font("Lucida Handwriting", Font.BOLD, 20);
 			t = new TrueTypeFont(font, false);
 		}
+		fort = 1;
 
 		junge = new MenuButton(50, 150, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
 			@Override
 			public void action() {
-
+				fort=13;
+				geschlecht="Junge";
 			}
 		});
 
-		fort = 1;
+		maedchen = new MenuButton(50, 200, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
+			@Override
+			public void action() {
+				fort=13;
+				geschlecht="Maedchen";
+			}
+		});
 	}
 
 	@Override
@@ -59,32 +68,36 @@ public class gameStart extends BasicGameState {
 			break;
 		case 4:
 			write("Dies nennen wir ein 'Pokemon'.");
-			// Pokemon Bild einfügen
+			// Pokemon Bild einfgen
 			break;
 		case 5:
-			write("Unsere Welt ist bevölkert von Wesen, die als Pokemon bekannnt sind.");
+			write("Unsere Welt ist bev\u00FClkert von Wesen, die als Pokemon bekannnt sind.");
 			break;
 		case 6:
 			write("Wir Menschen leben friedlich mit den Pokemon zusammen, sowohl als Freunde, als auch als Arbeitspartner.");
 			break;
 		case 7:
-			write("Und manchmal k�mpfen wir mit Pokemon gegen andere Menschen mit ihren Pokemon.");
+			write("Und manchmal k\u00E4mpfen wir mit Pokemon gegen andere Menschen mit ihren Pokemon.");
 			break;
 		case 8:
-			write("Obwohl wir so viel mit Pokemon zu tun haben, wissen wir nicht alles über sie.");
+			write("Obwohl wir so viel mit Pokemon zu tun haben, wissen wir nicht alles \u00FCber sie.");
 			break;
 		case 9:
-			write("Stattdessen gibts es viele Geheimnisse über Pokemon.");
+			write("Stattdessen gibts es viele Geheimnisse ueber Pokemon.");
 			break;
 		case 10:
-			write("Ich versuche die Pokemon zu erforschen um die letzten Gehimnisse über sie aufzudecken.");
+			write("Ich versuche die Pokemon zu erforschen um die letzten Geheimnisse \u00FCber sie aufzudecken.");
 			break;
 		case 11:
 			write("Das bin ich. Und wer bist du?");
 			break;
 		case 12:
-			write("Bist du ein Junge oder ein Mädchen?");
+			write("Bist du ein Junge oder ein M\u00E4dchen?");
 			junge.zeichneButton();
+			maedchen.zeichneButton();
+			break;
+		case 13:
+			write("Du bist also ein "+geschlecht);
 			break;
 		}
 	}
@@ -98,7 +111,12 @@ public class gameStart extends BasicGameState {
 			wait(50);
 			return;
 		}
-		junge.update(in.getMouseX(), in.getMouseY(), in.isMousePressed(0));
+		
+		if(fort==12)
+		{
+			junge.update(in.getMouseX(), in.getMouseY(), in.isMousePressed(0));
+			maedchen.update(in.getMouseX(), in.getMouseY(), in.isMousePressed(0));
+		}
 
 	}
 
