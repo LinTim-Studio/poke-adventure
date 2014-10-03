@@ -45,7 +45,9 @@ public class Main extends StateBasedGame {
 	/**
 	 * Die Maße des Standartbildschirms
 	 */
-	private static final int defWIDTH = 800, defHEIGHT = defWIDTH / 16 * 9; // 16 : 9
+	private static final int defWIDTH = 800, defHEIGHT = defWIDTH / 16 * 9; // 16
+																			// :
+																			// 9
 
 	/**
 	 * Die main-Methode des Spiels
@@ -91,23 +93,20 @@ public class Main extends StateBasedGame {
 
 		DisplayMode chosen = null;
 		DisplayMode desktopMode = Display.getDesktopDisplayMode();
-		if (desktopMode.isFullscreenCapable())
-			chosen = desktopMode;
-		else
-			for (DisplayMode mode : Display.getAvailableDisplayModes()) {
-				if (mode.isFullscreenCapable()) {
-					if (desktopMode.getWidth() >= mode.getWidth() && desktopMode.getHeight() >= mode.getHeight()) {
-						if (mode.getWidth() / mode.getHeight() == desktopMode.getWidth() / desktopMode.getHeight()) {
-							if (chosen == null)
+		for (DisplayMode mode : Display.getAvailableDisplayModes()) {
+			if (mode.isFullscreenCapable()) {
+				if (desktopMode.getWidth() > mode.getWidth() && desktopMode.getHeight() > mode.getHeight()) {
+					if (mode.getWidth() / (float) mode.getHeight() == desktopMode.getWidth() / (float) desktopMode.getHeight()) {
+						if (chosen == null)
+							chosen = mode;
+						else {
+							if (chosen.getWidth() > mode.getWidth() && chosen.getHeight() > mode.getHeight())
 								chosen = mode;
-							else {
-								if (chosen.getWidth() < mode.getWidth() && chosen.getHeight() < mode.getHeight())
-									chosen = mode;
-							}
 						}
 					}
 				}
 			}
+		}
 		if (chosen != null) {
 			app.setDisplayMode(chosen.getWidth(), chosen.getHeight(), false);
 		} else {
