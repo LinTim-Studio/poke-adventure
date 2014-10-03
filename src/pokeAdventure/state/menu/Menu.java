@@ -18,9 +18,13 @@ import pokeAdventure.transitions.LightningTransition;
 
 public class Menu extends BasicGameState {
 
+	ButtonArray btns;
+	
 	MenuButton newGame;
 	MenuButton laden;
 	MenuButton optionen;
+
+	int selected;
 
 	Image back;
 
@@ -72,6 +76,11 @@ public class Menu extends BasicGameState {
 		newGame.setHorizontalZentriert(true);
 		laden.setHorizontalZentriert(true);
 		optionen.setHorizontalZentriert(true);
+		
+		btns = new ButtonArray();
+		btns.add(newGame);
+		btns.add(laden);
+		btns.add(optionen);
 	}
 
 	@Override
@@ -79,21 +88,13 @@ public class Menu extends BasicGameState {
 		// füllt automatisch den ganzen Bildschirm
 		back.draw(0, 0, Main.getWidth(), Main.getHeight());
 
-		newGame.zeichneButton();
-		laden.zeichneButton();
-		optionen.zeichneButton();
+		btns.render();
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input in = container.getInput();
-		int x = in.getMouseX();
-		int y = in.getMouseY();
-		boolean mouseDown = in.isMousePressed(0);
-
-		newGame.update(x, y, mouseDown);
-		laden.update(x, y, mouseDown);
-		optionen.update(x, y, mouseDown);
+		btns.update(in);
 	}
 
 	@Override

@@ -6,12 +6,10 @@ import org.newdawn.slick.SlickException;
 import pokeAdventure.interfaces.Action;
 
 public class MenuButton {
-	public int y;
-	public int x;
-	public Image bild;
-	public Image bildHighlight;
+	private int x, y;
+	private Image bild, bildHighlight;
 
-	public Action event;
+	private Action event;
 
 	private boolean ueber;
 	/**
@@ -69,6 +67,18 @@ public class MenuButton {
 		else
 			return -((horizontalZentriert) ? bild.getWidth() / 2 : 0);
 
+	}
+
+	public void setUeber(boolean b) {
+		ueber = b;
+	}
+
+	public boolean istUeber() {
+		return ueber;
+	}
+
+	public void doAction() {
+		event.action();
 	}
 
 }
