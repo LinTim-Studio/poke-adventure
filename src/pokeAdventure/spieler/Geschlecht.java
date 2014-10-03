@@ -1,5 +1,5 @@
 package pokeAdventure.spieler;
 
 public enum Geschlecht {
-	maennlich, weiblich
+	maennlich, weiblich, anders
 }

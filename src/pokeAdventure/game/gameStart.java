@@ -24,8 +24,7 @@ public class gameStart extends BasicGameState {
 
 	private static TrueTypeFont t;
 
-	private MenuButton junge;
-	private MenuButton maedchen;
+	private MenuButton maedchen, junge, anders;
 
 	private float alpha;
 	private int fort;
@@ -56,6 +55,14 @@ public class gameStart extends BasicGameState {
 			public void action() {
 				fort = text.length;
 				Spieler.getInstance().geschlecht = Geschlecht.weiblich;
+			}
+		});
+		
+		anders = new MenuButton(50, 250, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
+			@Override
+			public void action() {
+				fort = text.length;
+				Spieler.getInstance().geschlecht = Geschlecht.anders;
 			}
 		});
 
@@ -89,6 +96,7 @@ public class gameStart extends BasicGameState {
 		if (fort == text.length - 1) {
 			junge.zeichneButton();
 			maedchen.zeichneButton();
+			anders.zeichneButton();
 		} else if (fort == text.length) {
 			write("Du bist also ein " + Spieler.getInstance().getGeschlechtsBezeichnung() + ". Und wie ist dein Name?");
 			textField.render(container, g);
@@ -113,6 +121,7 @@ public class gameStart extends BasicGameState {
 		if (fort == text.length - 1) {
 			junge.update(in.getMouseX(), in.getMouseY(), mouseDown);
 			maedchen.update(in.getMouseX(), in.getMouseY(), mouseDown);
+			anders.update(in.getMouseX(), in.getMouseY(), mouseDown);
 		} else if (fort == text.length) {
 			textField.setFocus(true);
 			if (in.isKeyPressed(Keyboard.KEY_RETURN) && (textField.getText() != null && textField.getText().length() > 0)) {

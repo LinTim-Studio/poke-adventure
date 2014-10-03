@@ -32,6 +32,8 @@ public class Spieler {
 			return "Junge";
 		if (geschlecht == Geschlecht.weiblich)
 			return "M\u00E4dchen";
+		if (geschlecht == Geschlecht.anders)
+			return "Sonstiges";
 		return "Nichts";
 	}
 }
