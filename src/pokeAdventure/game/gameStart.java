@@ -15,6 +15,8 @@ import org.newdawn.slick.gui.TextField;
 import pokeAdventure.Main;
 import pokeAdventure.interfaces.Action;
 import pokeAdventure.state.menu.MenuButton;
+import spieler.Daten;
+
 
 public class gameStart extends BasicGameState {
 
