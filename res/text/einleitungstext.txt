@@ -2,7 +2,7 @@
 //   Dies ist der Einleitungstext
 //
 Willkommen in der Welt der Pokemon!
-Mein Name ist .... 
+Mein Name ist Kiefer. 
 Aber jeder nennt mich den Pokemon Professor.
 Dies nennen wir ein 'Pokemon'.
 Unsere Welt ist bevölkert von Wesen, die als Pokemon bekannnt sind.

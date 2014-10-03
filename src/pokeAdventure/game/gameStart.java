@@ -15,7 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import pokeAdventure.Main;
 import pokeAdventure.interfaces.Action;
-import pokeAdventure.spieler.Daten;
+import pokeAdventure.spieler.Spieler;
 import pokeAdventure.spieler.Geschlecht;
 import pokeAdventure.state.menu.MenuButton;
 import pokeAdventure.util.TextLoader;
@@ -47,7 +47,7 @@ public class gameStart extends BasicGameState {
 			@Override
 			public void action() {
 				fort = text.length;
-				Daten.getInstance().geschlecht = Geschlecht.maennlich;
+				Spieler.getInstance().geschlecht = Geschlecht.maennlich;
 			}
 		});
 
@@ -55,7 +55,7 @@ public class gameStart extends BasicGameState {
 			@Override
 			public void action() {
 				fort = text.length;
-				Daten.getInstance().geschlecht = Geschlecht.weiblich;
+				Spieler.getInstance().geschlecht = Geschlecht.weiblich;
 			}
 		});
 
@@ -90,12 +90,12 @@ public class gameStart extends BasicGameState {
 			junge.zeichneButton();
 			maedchen.zeichneButton();
 		} else if (fort == text.length) {
-			write("Du bist also ein " + Daten.getInstance().getGeschlechtsBezeichnung() + ". Und wie ist dein Name?");
+			write("Du bist also ein " + Spieler.getInstance().getGeschlechtsBezeichnung() + ". Und wie ist dein Name?");
 			textField.render(container, g);
 		} else if (fort == text.length + 1)
-			write("Sch\u00F6n dich kennenzulernen " + Daten.getInstance().name + ".");
+			write("Sch\u00F6n dich kennenzulernen " + Spieler.getInstance().name + ".");
 		else if (fort == text.length + 2)
-			write("Ah, jetzt f�llt es mir wieder ein. Du bist gerade in meine Heimatstadt gezogen. Du kannst mich gerne mal besuchen bekommen.");
+			write("Ah, jetzt f\u00e4llt es mir wieder ein. Du bist gerade in meine Heimatstadt gezogen. Du kannst mich gerne mal besuchen bekommen.");
 	}
 
 	@Override
@@ -103,7 +103,8 @@ public class gameStart extends BasicGameState {
 		Input in = container.getInput();
 		// isMousePresssed darf nur einmal aufgerufen werden
 		boolean mouseDown = in.isMousePressed(0);
-		if (mouseDown && ((fort < text.length - 1) || (fort > text.length))) {
+
+		if (mouseDown && ((fort < text.length - 1) || ((fort > text.length) && (fort < text.length + 2)))) {
 			fort++;
 		}
 		if (fort >= 3) {
@@ -115,7 +116,7 @@ public class gameStart extends BasicGameState {
 		} else if (fort == text.length) {
 			textField.setFocus(true);
 			if (in.isKeyPressed(Keyboard.KEY_RETURN) && (textField.getText() != null && textField.getText().length() > 0)) {
-				Daten.getInstance().name = textField.getText();
+				Spieler.getInstance().name = textField.getText();
 				fort++;
 				return;
 			}
