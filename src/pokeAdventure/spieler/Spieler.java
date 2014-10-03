@@ -1,6 +1,9 @@
 package pokeAdventure.spieler;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.tiled.TiledMap;
 
 
 
@@ -35,5 +38,13 @@ public class Spieler {
 		if (geschlecht == Geschlecht.anders)
 			return "Sonstiges";
 		return "Nichts";
+	}
+
+	public void update(GameContainer container, int delta, TiledMap map) {
+		//TODO update
+	}
+
+	public void render(GameContainer container, Graphics g) {
+		//TODO render
 	}
 }

@@ -10,7 +10,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.StateBasedGame;
 
-import pokeAdventure.game.gameStart;
+import pokeAdventure.game.Game;
+import pokeAdventure.game.GameStart;
 import pokeAdventure.state.Ladebildschirm;
 import pokeAdventure.state.menu.Menu;
 import pokeAdventure.state.menu.MenuLaden;
@@ -25,7 +26,7 @@ public class Main extends StateBasedGame {
 	/**
 	 * Die ID's der states
 	 */
-	public static final int menuID = 0x0, ladenID = 0x1, optionenID = 0x2, gameStartID = 0x3, ladebildschirm = 0x4;
+	public static final int menuID = 0x0, ladenID = 0x1, optionenID = 0x2, gameStartID = 0x3, ladebildschirm = 0x4, gameID = 0x5;
 
 	/**
 	 * Gibt an, ob wir am debuggen sind oder nicht
@@ -132,8 +133,9 @@ public class Main extends StateBasedGame {
 		this.addState(new Menu());
 		this.addState(new MenuLaden());
 		this.addState(new Optionen());
-		this.addState(new gameStart());
-
+		this.addState(new GameStart());
+		this.addState(new Game());
+		
 		this.enterState(ladebildschirm);
 	}
 
