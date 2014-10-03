@@ -1,4 +1,4 @@
-package spieler;
+package pokeAdventure.spieler;
 
 public enum Geschlecht {
 	maennlich, weiblich

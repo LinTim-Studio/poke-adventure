@@ -1,0 +1,16 @@
+//
+//   Dies ist der Einleitungstext
+//
+Willkommen in der Welt der Pokemon!
+Mein Name ist .... 
+Aber jeder nennt mich den Pokemon Professor.
+Dies nennen wir ein 'Pokemon'.
+//Unsere Welt ist bev\u00F6lkert von Wesen, die als Pokemon bekannnt sind.
+Unsere Welt ist bevölkert von Wesen, die als Pokemon bekannnt sind.
+Wir Menschen leben friedlich mit den Pokemon zusammen, sowohl als Freunde, als auch als Arbeitspartner.
+Und manchmal k\u00E4mpfen wir mit Pokemon gegen andere Menschen mit ihren Pokemon.
+Obwohl wir so viel mit Pokemon zu tun haben, wissen wir nicht alles \u00FCber sie.
+Stattdessen gibts es viele Geheimnisse \u00FCber Pokemon.
+Ich versuche die Pokemon zu erforschen um die letzten Geheimnisse \u00FCber sie aufzudecken.
+Das bin ich. Und wer bist du?
+Bist du ein Junge oder ein M\u00E4dchen?

@@ -40,7 +40,7 @@ public class Main extends StateBasedGame {
 	/**
 	 * Die fps-Rate des Spiels
 	 */
-	private static final int FPS = 30;
+	private static final int FPS = 60;
 
 	/**
 	 * Die Maße des Standartbildschirms

@@ -2,6 +2,7 @@ package pokeAdventure.game;
 
 import java.awt.Font;
 
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -14,23 +15,21 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import pokeAdventure.Main;
 import pokeAdventure.interfaces.Action;
+import pokeAdventure.spieler.Daten;
+import pokeAdventure.spieler.Geschlecht;
 import pokeAdventure.state.menu.MenuButton;
-import spieler.Daten;
-import spieler.Geschlecht;
-
+import pokeAdventure.util.TextLoader;
 
 public class gameStart extends BasicGameState {
 
 	private static TrueTypeFont t;
+
+	private MenuButton junge;
+	private MenuButton maedchen;
+
 	private int fort;
-	private static MenuButton junge;
-	private static MenuButton maedchen;
-
-	private static String geschlecht;
-	private static String name;
-	
-	private static TextField text;
-
+	private String[] text;
+	private TextField textField;
 	private Image papierbg, prof;
 
 	@Override
@@ -41,31 +40,30 @@ public class gameStart extends BasicGameState {
 			Font font = new Font("Lucida Handwriting", Font.BOLD, 20);
 			t = new TrueTypeFont(font, false);
 		}
-		fort = 1;
+		fort = 0;
 
 		junge = new MenuButton(50, 150, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
 			@Override
 			public void action() {
-				fort=13;
-				Daten.getInstance().geschlecht=Geschlecht.weiblich;
+				fort = text.length;
+				Daten.getInstance().geschlecht = Geschlecht.maennlich;
 			}
 		});
-
 
 		maedchen = new MenuButton(50, 200, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
 			@Override
 			public void action() {
-				fort=13;
-				Daten.getInstance().geschlecht=Geschlecht.weiblich;
+				fort = text.length;
+				Daten.getInstance().geschlecht = Geschlecht.weiblich;
 			}
 		});
-		
-		
+
 		papierbg = new Image("res/gameStart/Papierbg.png");
 		prof = new Image("res/gameStart/prof.png");
 
-		text = new TextField(container, t, 50,150,250,25);
+		textField = new TextField(container, t, 50, 150, 250, 25);
 
+		text = (TextLoader.loadFileToStrings("res/text/einleitungstext.txt", "//"));
 	}
 
 	@Override
@@ -74,54 +72,18 @@ public class gameStart extends BasicGameState {
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
 		g.drawImage(papierbg, 0, 0);
 		g.drawImage(prof, 475, 125);
-		switch (fort) {
-		case 1:
-			write("Willkommen in der Welt der Pokemon!");
-			break;
-		case 2:
-			write("Mein Name ist .... ");
-			break;
-		case 3:
-			write("Aber jeder nennt mich den Pokemon Professor.");
-			break;
-		case 4:
-			write("Dies nennen wir ein 'Pokemon'.");
-			// Pokemon Bild einfgen
-			break;
-		case 5:
-			write("Unsere Welt ist bev\u00F6lkert von Wesen, die als Pokemon bekannnt sind.");
-			break;
-		case 6:
-			write("Wir Menschen leben friedlich mit den Pokemon zusammen, sowohl als Freunde, als auch als Arbeitspartner.");
-			break;
-		case 7:
-			write("Und manchmal k\u00E4mpfen wir mit Pokemon gegen andere Menschen mit ihren Pokemon.");
-			break;
-		case 8:
-			write("Obwohl wir so viel mit Pokemon zu tun haben, wissen wir nicht alles \u00FCber sie.");
-			break;
-		case 9:
-			write("Stattdessen gibts es viele Geheimnisse \u00FCber Pokemon.");
-			break;
-		case 10:
-			write("Ich versuche die Pokemon zu erforschen um die letzten Geheimnisse \u00FCber sie aufzudecken.");
-			break;
-		case 11:
-			write("Das bin ich. Und wer bist du?");
-			break;
-		case 12:
-			write("Bist du ein Junge oder ein M\u00E4dchen?");
+
+		if (fort >= 0 && fort < text.length)
+			write(text[fort]);
+
+		if (fort == text.length - 1) {
 			junge.zeichneButton();
 			maedchen.zeichneButton();
-			break;
-		case 13:
-			write("Du bist also ein "+geschlecht+". Und wie ist dein Name?");
-			text.render(container, g);
-			break;
-		case 14:
-			write("Sch\u00F6n dich kennenzulernen "+name+".");
-			break;
-		}
+		} else if (fort == text.length) {
+			write("Du bist also ein " + Daten.getInstance().geschlecht + ". Und wie ist dein Name?");
+			textField.render(container, g);
+		} else if (fort == text.length + 1)
+			write("Sch\u00F6n dich kennenzulernen " + Daten.getInstance().name + ".");
 	}
 
 	@Override
@@ -130,20 +92,18 @@ public class gameStart extends BasicGameState {
 		Input in = container.getInput();
 		// isMousePresssed darf nur einmal aufgerufen werden
 		boolean mouseDown = in.isMousePressed(0);
-		if (mouseDown && (fort < 12)) {
+		if (mouseDown && (fort < text.length - 1)) {
 			fort++;
 		}
-
-		
-		if(fort==12)
-		{
+		if (fort == text.length - 1) {
 			junge.update(in.getMouseX(), in.getMouseY(), mouseDown);
 			maedchen.update(in.getMouseX(), in.getMouseY(), mouseDown);
-			return;
-		}
-		if ((fort == 13)&&(mouseDown)&&(text.getText()!=null)) {
-			Daten.getInstance().name=text.getText();
-			fort++;
+		} else if (fort == text.length) {
+			textField.setFocus(true);
+			if (in.isKeyPressed(Keyboard.KEY_RETURN) && (textField.getText() != null && textField.getText().length() > 0)) {
+				Daten.getInstance().name = textField.getText();
+				fort++;
+			}
 		}
 
 	}
