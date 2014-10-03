@@ -1,10 +1,10 @@
 package pokeAdventure.util;
 
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public abstract class TextLoader {
@@ -12,12 +12,12 @@ public abstract class TextLoader {
 	public static String[] loadFileToStrings(String fileName, String comment) {
 		boolean activateComments = comment.length() != 0;
 
-		File file = new File(fileName);
 		ArrayList<String> content = new ArrayList<String>();
 		BufferedReader reader = null;
 
 		try {
-			reader = new BufferedReader(new FileReader(file));
+
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));
 			String s = null;
 
 			while ((s = reader.readLine()) != null) {
