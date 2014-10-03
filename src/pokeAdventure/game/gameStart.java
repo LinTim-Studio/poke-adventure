@@ -103,7 +103,7 @@ public class gameStart extends BasicGameState {
 		Input in = container.getInput();
 		// isMousePresssed darf nur einmal aufgerufen werden
 		boolean mouseDown = in.isMousePressed(0);
-		if (mouseDown && ((fort < text.length - 1)||((fort > text.length)&&(fort < text.length+2)))) {
+		if (mouseDown && ((fort < text.length - 1) || (fort > text.length))) {
 			fort++;
 		}
 		if (fort >= 3) {
