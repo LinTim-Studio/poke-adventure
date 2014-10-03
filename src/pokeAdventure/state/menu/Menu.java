@@ -11,8 +11,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.CombinedTransition;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.state.transition.HorizontalSplitTransition;
-import org.newdawn.slick.state.transition.VerticalSplitTransition;
 
 import pokeAdventure.Main;
 import pokeAdventure.interfaces.Action;
@@ -38,17 +36,17 @@ public class Menu extends BasicGameState {
 		// Der zu addierende Wert pro button
 		int dy = (int) (Main.getHeight() / 7.5); // 60
 
+		int time = 500;
+		final CombinedTransition tranOut = new CombinedTransition();
+		tranOut.addTransition(new LightningTransition(time));
+		tranOut.addTransition(new FadeOutTransition(Color.black, time));
+		final CombinedTransition tranIn = new CombinedTransition();
+		tranIn.addTransition(new LightningTransition(time));
+		tranIn.addTransition(new FadeInTransition(Color.black, time));
+
 		newGame = new MenuButton(x, y, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
-				System.out.println("Neues Spiel!");
-				int time = 500;
-				CombinedTransition tranOut = new CombinedTransition();
-				tranOut.addTransition(new LightningTransition(time));
-				tranOut.addTransition(new FadeOutTransition(Color.black, time));
-				CombinedTransition tranIn = new CombinedTransition();
-				tranIn.addTransition(new LightningTransition(time));
-				tranIn.addTransition(new FadeInTransition(Color.black, time));
 				game.enterState(Main.gameStartID, tranOut, tranIn);
 			}
 		});
@@ -56,7 +54,7 @@ public class Menu extends BasicGameState {
 		laden = new MenuButton(x, y + dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
-				game.enterState(Main.ladenID, new HorizontalSplitTransition(Color.green), new VerticalSplitTransition(Color.green));
+				game.enterState(Main.ladenID, tranOut, tranIn);
 			}
 		});
 		// tempörär zum Vollbildwechsel-Button missbraucht :)

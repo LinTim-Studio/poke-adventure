@@ -61,7 +61,7 @@ public class Main extends StateBasedGame {
 			initApp(app);
 			app.start();
 		} catch (Exception e) {
-			Fehlermelder.melde(e, "Fehler beim starten!");
+			Fehlermelder.melde(e, "Fehler beim Starten der App!");
 			Fehlermelder.crash();
 		}
 	}
