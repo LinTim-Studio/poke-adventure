@@ -22,11 +22,10 @@ public class gameStart extends BasicGameState {
 	private static MenuButton junge;
 	@SuppressWarnings("unused")
 	private static MenuButton maedchen;
-<<<<<<< HEAD
+
 	private static String geschlecht;
-=======
+
 	private Image papierbg, prof;
->>>>>>> branch 'develop' of https://github.com/LinTim-Studio/poke-adventure
 
 	@Override
 	public void init(GameContainer container, final StateBasedGame game) throws SlickException {
@@ -46,7 +45,7 @@ public class gameStart extends BasicGameState {
 			}
 		});
 
-<<<<<<< HEAD
+
 		maedchen = new MenuButton(50, 200, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
 			@Override
 			public void action() {
@@ -54,12 +53,12 @@ public class gameStart extends BasicGameState {
 				geschlecht="Maedchen";
 			}
 		});
-=======
+
 		papierbg = new Image("res/gameStart/Papierbg.png");
 		prof = new Image("res/gameStart/prof.png");
 
 		fort = 1;
->>>>>>> branch 'develop' of https://github.com/LinTim-Studio/poke-adventure
+
 	}
 
 	@Override
@@ -109,7 +108,7 @@ public class gameStart extends BasicGameState {
 			maedchen.zeichneButton();
 			break;
 		case 13:
-			write("Du bist also ein "+geschlecht);
+			write("Du bist also ein "+geschlecht+".");
 			break;
 		}
 	}
@@ -123,16 +122,16 @@ public class gameStart extends BasicGameState {
 		if (mouseDown && (fort < 12)) {
 			fort++;
 		}
-<<<<<<< HEAD
+
 		
 		if(fort==12)
 		{
-			junge.update(in.getMouseX(), in.getMouseY(), in.isMousePressed(0));
-			maedchen.update(in.getMouseX(), in.getMouseY(), in.isMousePressed(0));
-=======
-		if (fort >= 12) {
 			junge.update(in.getMouseX(), in.getMouseY(), mouseDown);
->>>>>>> branch 'develop' of https://github.com/LinTim-Studio/poke-adventure
+			maedchen.update(in.getMouseX(), in.getMouseY(), mouseDown);
+		}
+		if (fort > 12) {
+			junge.update(in.getMouseX(), in.getMouseY(), mouseDown);
+
 		}
 
 	}
