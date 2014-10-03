@@ -20,4 +20,12 @@ public class Daten {
 	private Daten()
 	{	
 	}
+
+	public String getGeschlechtsBezeichnung() {
+		if (geschlecht == Geschlecht.maennlich)
+			return "Junge";
+		if (geschlecht == Geschlecht.weiblich)
+			return "M\u00E4dchen";
+		return "Nichts";
+	}
 }

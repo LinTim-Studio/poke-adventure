@@ -80,7 +80,7 @@ public class gameStart extends BasicGameState {
 			junge.zeichneButton();
 			maedchen.zeichneButton();
 		} else if (fort == text.length) {
-			write("Du bist also ein " + Daten.getInstance().geschlecht + ". Und wie ist dein Name?");
+			write("Du bist also ein " + Daten.getInstance().getGeschlechtsBezeichnung() + ". Und wie ist dein Name?");
 			textField.render(container, g);
 		} else if (fort == text.length + 1)
 			write("Sch\u00F6n dich kennenzulernen " + Daten.getInstance().name + ".");
