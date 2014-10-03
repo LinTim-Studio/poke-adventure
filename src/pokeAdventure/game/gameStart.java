@@ -92,7 +92,7 @@ public class gameStart extends BasicGameState {
 		{
 			if (fort==3)
 				try {
-					Thread.sleep(50);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
