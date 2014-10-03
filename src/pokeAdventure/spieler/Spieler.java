@@ -4,7 +4,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 
 
-public class Daten {
+public class Spieler {
 
 	public String name;
 	public Geschlecht geschlecht;
@@ -14,16 +14,16 @@ public class Daten {
 	/*
 	 * Singleton
 	 */
-	private static Daten spielerDaten;
+	private static Spieler spielerDaten;
 	
-	public static Daten getInstance() {
+	public static Spieler getInstance() {
 		if (spielerDaten == null) {
-			spielerDaten = new Daten();
+			spielerDaten = new Spieler();
 		}
 		return spielerDaten;	
 	}
 	
-	private Daten()
+	private Spieler()
 	{	
 	}
 
