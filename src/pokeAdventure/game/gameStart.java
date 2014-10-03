@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.gui.TextField;
 
 import pokeAdventure.Main;
 import pokeAdventure.interfaces.Action;
@@ -24,6 +25,9 @@ public class gameStart extends BasicGameState {
 	private static MenuButton maedchen;
 
 	private static String geschlecht;
+	private static String name;
+	
+	private static TextField text;
 
 	private Image papierbg, prof;
 
@@ -53,11 +57,13 @@ public class gameStart extends BasicGameState {
 				geschlecht="Maedchen";
 			}
 		});
+		
+
 
 		papierbg = new Image("res/gameStart/Papierbg.png");
 		prof = new Image("res/gameStart/prof.png");
 
-		fort = 1;
+		text = new TextField(container, t, 50,150,250,25);
 
 	}
 
@@ -108,7 +114,11 @@ public class gameStart extends BasicGameState {
 			maedchen.zeichneButton();
 			break;
 		case 13:
-			write("Du bist also ein "+geschlecht+".");
+			write("Du bist also ein "+geschlecht+". Und wie ist dein Name?");
+			text.render(container, g);
+			break;
+		case 14:
+			write("Schön dich kennenzulernen "+name+".");
 			break;
 		}
 	}
@@ -128,10 +138,12 @@ public class gameStart extends BasicGameState {
 		{
 			junge.update(in.getMouseX(), in.getMouseY(), mouseDown);
 			maedchen.update(in.getMouseX(), in.getMouseY(), mouseDown);
+			return;
 		}
-		if (fort > 12) {
-			junge.update(in.getMouseX(), in.getMouseY(), mouseDown);
-
+		if ((fort == 13)&&(mouseDown)&&(text.getText()!=null)) {
+			name=text.getText();
+			fort++;
+			return;
 		}
 
 	}
