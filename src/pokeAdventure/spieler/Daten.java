@@ -1,9 +1,15 @@
 package pokeAdventure.spieler;
 
+import org.newdawn.slick.geom.Vector2f;
+
+
+
 public class Daten {
 
 	public String name;
 	public Geschlecht geschlecht;
+	
+	public Vector2f Koordinaten;
 	
 	/*
 	 * Singleton
