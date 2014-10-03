@@ -8,14 +8,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.gui.TextField;
 
 import pokeAdventure.Main;
 import pokeAdventure.interfaces.Action;
 import pokeAdventure.state.menu.MenuButton;
-import spieler.Daten;
 
 
 public class gameStart extends BasicGameState {
@@ -23,7 +22,6 @@ public class gameStart extends BasicGameState {
 	private static TrueTypeFont t;
 	private int fort;
 	private static MenuButton junge;
-	@SuppressWarnings("unused")
 	private static MenuButton maedchen;
 
 	private static String geschlecht;

@@ -1,16 +1,23 @@
 package spieler;
 
-
-
 public class Daten {
 
 	public String name;
 	public Geschlecht geschlecht;
 	
-	public static Daten spieler;
+	/*
+	 * Singleton
+	 */
+	private static Daten spielerDaten;
 	
-	public Daten()
-	{
-		
+	public static Daten getInstance() {
+		if (spielerDaten == null) {
+			spielerDaten = new Daten();
+		}
+		return spielerDaten;	
+	}
+	
+	private Daten()
+	{	
 	}
 }

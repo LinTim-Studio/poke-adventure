@@ -1,5 +1,5 @@
 package spieler;
 
 public enum Geschlecht {
-	männlich, weiblich
+	maennlich, weiblich
 }
