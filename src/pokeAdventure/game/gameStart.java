@@ -76,9 +76,6 @@ public class gameStart extends BasicGameState {
 
 		if (fort >= 0 && fort < text.length)
 			write(text[fort]);
-		
-		if(fort>4)
-			g.drawImage(pika, 350, 300);
 
 		if (fort == text.length - 1) {
 			junge.zeichneButton();
@@ -89,7 +86,20 @@ public class gameStart extends BasicGameState {
 		} else if (fort == text.length + 1)
 			write("Sch\u00F6n dich kennenzulernen " + Daten.getInstance().name + ".");
 		else if(fort == text.length + 2)
-			write("Ah, jetzt fällt es mir wieder ein. Du bist gerade in meine Heimatstadt gezogen. Du kannst mich gerne mal besuchen bekommen.");
+			write("Ah, jetzt fï¿½llt es mir wieder ein. Du bist gerade in meine Heimatstadt gezogen. Du kannst mich gerne mal besuchen kommen.");
+	
+		if(fort>2)
+		{
+			if (fort==3)
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			g.drawImage(pika, 350, 300);
+		}
+	
 	}
 
 	@Override
@@ -98,7 +108,7 @@ public class gameStart extends BasicGameState {
 		Input in = container.getInput();
 		// isMousePresssed darf nur einmal aufgerufen werden
 		boolean mouseDown = in.isMousePressed(0);
-		if (mouseDown && ((fort < text.length - 1)||(fort > text.length))) {
+		if (mouseDown && ((fort < text.length - 1)||((fort > text.length)&&(fort < text.length+2)))) {
 			fort++;
 		}
 		if (fort == text.length - 1) {
