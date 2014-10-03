@@ -15,6 +15,8 @@ import org.newdawn.slick.state.StateBasedGame;
 import pokeAdventure.Main;
 import pokeAdventure.interfaces.Action;
 import pokeAdventure.state.menu.MenuButton;
+import spieler.Daten;
+import spieler.Geschlecht;
 
 
 public class gameStart extends BasicGameState {
@@ -45,7 +47,7 @@ public class gameStart extends BasicGameState {
 			@Override
 			public void action() {
 				fort=13;
-				geschlecht="Junge";
+				Daten.getInstance().geschlecht=Geschlecht.weiblich;
 			}
 		});
 
@@ -54,12 +56,11 @@ public class gameStart extends BasicGameState {
 			@Override
 			public void action() {
 				fort=13;
-				geschlecht="Maedchen";
+				Daten.getInstance().geschlecht=Geschlecht.weiblich;
 			}
 		});
 		
-
-
+		
 		papierbg = new Image("res/gameStart/Papierbg.png");
 		prof = new Image("res/gameStart/prof.png");
 
@@ -141,7 +142,7 @@ public class gameStart extends BasicGameState {
 			return;
 		}
 		if ((fort == 13)&&(mouseDown)&&(text.getText()!=null)) {
-			name=text.getText();
+			Daten.getInstance().name=text.getText();
 			fort++;
 		}
 
