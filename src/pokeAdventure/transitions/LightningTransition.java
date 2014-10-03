@@ -10,16 +10,21 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.Transition;
 
+import pokeAdventure.util.error.Fehlermelder;
+
 public class LightningTransition implements Transition {
 	private static int frameCount = 3;
 
-	private Image[] frames;
+	private static Image[] frames;
+	private static boolean initialized;
+
 	private int time, x;
 	private boolean done;
 	private Random rand;
 
 	public LightningTransition(int time) {
 		this.time = time;
+		staticInit();
 	}
 
 	@Override
@@ -50,17 +55,25 @@ public class LightningTransition implements Transition {
 		return done;
 	}
 
-	@Override
-	public void init(GameState firstState, GameState secondState) {
-		rand = new Random();
+	private static boolean staticInit() {
+		if (initialized) {
+			return false;
+		}
 		frames = new Image[frameCount];
 		for (int i = 1; i <= frameCount; i++) {
 			try {
 				frames[i - 1] = new Image("lightning/lightning" + i + ".png");
 			} catch (SlickException e) {
-				e.printStackTrace();
+				Fehlermelder.melde(e);
 			}
 		}
+		initialized = true;
+		return true;
+	}
+
+	@Override
+	public void init(GameState firstState, GameState secondState) {
+		rand = new Random();
 	}
 
 }

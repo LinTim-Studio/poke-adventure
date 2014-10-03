@@ -18,14 +18,19 @@ import pokeAdventure.state.menu.MenuButton;
 public class gameStart extends BasicGameState {
 
 	private static TrueTypeFont t;
-	private static int fort;
+	private int fort;
 	private static MenuButton junge;
 	@SuppressWarnings("unused")
 	private static MenuButton maedchen;
+<<<<<<< HEAD
 	private static String geschlecht;
+=======
+	private Image papierbg, prof;
+>>>>>>> branch 'develop' of https://github.com/LinTim-Studio/poke-adventure
 
 	@Override
 	public void init(GameContainer container, final StateBasedGame game) throws SlickException {
+
 		// soll nur einmal aufgerufen werden
 		if (t == null) {
 			Font font = new Font("Lucida Handwriting", Font.BOLD, 20);
@@ -41,6 +46,7 @@ public class gameStart extends BasicGameState {
 			}
 		});
 
+<<<<<<< HEAD
 		maedchen = new MenuButton(50, 200, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
 			@Override
 			public void action() {
@@ -48,14 +54,20 @@ public class gameStart extends BasicGameState {
 				geschlecht="Maedchen";
 			}
 		});
+=======
+		papierbg = new Image("res/gameStart/Papierbg.png");
+		prof = new Image("res/gameStart/prof.png");
+
+		fort = 1;
+>>>>>>> branch 'develop' of https://github.com/LinTim-Studio/poke-adventure
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
-		g.drawImage(new Image("res/gameStart/Papierbg.png"), 0, 0);
-		g.drawImage(new Image("res/gameStart/prof.png"), 475, 125);
+		g.drawImage(papierbg, 0, 0);
+		g.drawImage(prof, 475, 125);
 		switch (fort) {
 		case 1:
 			write("Willkommen in der Welt der Pokemon!");
@@ -106,16 +118,21 @@ public class gameStart extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 
 		Input in = container.getInput();
-		if ((in.isMousePressed(0)) && (fort < 12)) {
+		// isMousePresssed darf nur einmal aufgerufen werden
+		boolean mouseDown = in.isMousePressed(0);
+		if (mouseDown && (fort < 12)) {
 			fort++;
-			wait(50);
-			return;
 		}
+<<<<<<< HEAD
 		
 		if(fort==12)
 		{
 			junge.update(in.getMouseX(), in.getMouseY(), in.isMousePressed(0));
 			maedchen.update(in.getMouseX(), in.getMouseY(), in.isMousePressed(0));
+=======
+		if (fort >= 12) {
+			junge.update(in.getMouseX(), in.getMouseY(), mouseDown);
+>>>>>>> branch 'develop' of https://github.com/LinTim-Studio/poke-adventure
 		}
 
 	}
@@ -125,17 +142,8 @@ public class gameStart extends BasicGameState {
 		return Main.gameStartID;
 	}
 
-	void wait(int x) {
-		try {
-			Thread.sleep(x);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
 	private void write(String s) {
 		autoWrite(s, 40, 40, 500);
-		
 	}
 
 	/**

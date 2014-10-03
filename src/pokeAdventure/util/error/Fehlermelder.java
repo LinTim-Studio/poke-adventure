@@ -12,6 +12,7 @@ public abstract class Fehlermelder {
 	 */
 	public static void melde(Exception e, String msg) {
 		melde(e.getMessage() + "; " + msg);
+		e.printStackTrace();
 	}
 	
 	/**
@@ -20,6 +21,7 @@ public abstract class Fehlermelder {
 	 */
 	public static void melde(Exception e) {
 		melde(e.getMessage());
+		e.printStackTrace();
 	}
 
 	/**
