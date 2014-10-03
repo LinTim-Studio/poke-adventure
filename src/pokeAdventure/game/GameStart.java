@@ -20,7 +20,7 @@ import pokeAdventure.spieler.Geschlecht;
 import pokeAdventure.state.menu.MenuButton;
 import pokeAdventure.util.TextLoader;
 
-public class gameStart extends BasicGameState {
+public class GameStart extends BasicGameState {
 
 	private static TrueTypeFont t;
 
@@ -112,7 +112,7 @@ public class gameStart extends BasicGameState {
 		// isMousePresssed darf nur einmal aufgerufen werden
 		boolean mouseDown = in.isMousePressed(0);
 
-		if (mouseDown && ((fort < text.length - 1) || ((fort > text.length) && (fort < text.length + 2)))) {
+		if (mouseDown && ((fort < text.length - 1) || (fort > text.length))) {
 			fort++;
 		}
 		if (fort >= 3) {
@@ -127,10 +127,11 @@ public class gameStart extends BasicGameState {
 			if (in.isKeyPressed(Keyboard.KEY_RETURN) && (textField.getText() != null && textField.getText().length() > 0)) {
 				Spieler.getInstance().name = textField.getText();
 				fort++;
-				return;
 			}
 		}
 
+		if (fort > text.length + 2)
+			game.enterState(Main.gameID);
 	}
 
 	@Override
