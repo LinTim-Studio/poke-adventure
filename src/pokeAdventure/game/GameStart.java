@@ -103,7 +103,7 @@ public class GameStart extends BasicGameState {
 		} else if (fort == text.length + 1)
 			write("Sch\u00F6n dich kennenzulernen " + Spieler.getInstance().name + ".");
 		else if (fort == text.length + 2)
-			write("Ah, jetzt f\u00e4llt es mir wieder ein. Du bist gerade in meine Heimatstadt Elysion gezogen. Du kannst mich gerne mal besuchen bekommen.");
+			write("Ah, jetzt f\u00e4llt es mir wieder ein. Du bist gerade in meine Heimatstadt Elysion gezogen. Du kannst mich gerne mal besuchen kommen.");
 	}
 
 	@Override
