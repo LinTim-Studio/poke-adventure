@@ -2,8 +2,10 @@ package pokeAdventure.state.menu;
 
 import java.util.ArrayList;
 
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Input;
+
+import pokeAdventure.einstellungen.Taste;
+import pokeAdventure.einstellungen.Tastenbelegung;
 
 public class ButtonArray {
 
@@ -36,19 +38,19 @@ public class ButtonArray {
 			}
 		}
 		
-		if (in.isKeyPressed(Keyboard.KEY_DOWN)) {
+		if (Tastenbelegung.isPressed(in, Taste.Runter)) {
 			selected++;
 			if (selected >= btns.size())
 				selected = 0;
 		}
 		
-		if (in.isKeyPressed(Keyboard.KEY_UP)) {
+		if (Tastenbelegung.isPressed(in, Taste.Hoch)) {
 			selected--;
 			if (selected < 0)
 				selected = btns.size() - 1;
 		}
 		
-		if (in.isKeyPressed(Keyboard.KEY_RETURN)) {
+		if (Tastenbelegung.isPressed(in, Taste.Enter)) {
 			btns.get(selected).doAction();
 		}
 		

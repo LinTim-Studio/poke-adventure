@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.StateBasedGame;
 
+import pokeAdventure.einstellungen.Tastenbelegung;
 import pokeAdventure.game.Game;
 import pokeAdventure.game.GameStart;
 import pokeAdventure.state.Ladebildschirm;
@@ -136,7 +137,13 @@ public class Main extends StateBasedGame {
 		this.addState(new GameStart());
 		this.addState(new Game());
 		
+		init();
+		
 		this.enterState(ladebildschirm);
+	}
+
+	private void init() {
+		Tastenbelegung.load();
 	}
 
 	public static int getWidth() {
