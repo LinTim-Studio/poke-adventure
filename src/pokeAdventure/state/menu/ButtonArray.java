@@ -33,58 +33,15 @@ public class ButtonArray {
 			menuButton.zeichneButton();
 		}
 	}
-
+	
 	public void update(Input in) {
 		int mx = in.getMouseX();
 		int my = in.getMouseY();
 		boolean mouseBtnDown = in.isMouseButtonDown(0);
-
-		for (int x = 0; x < cols; x++) {
-			for (int y = 0; y < rows; y++) {
-				btns.get(x + y * cols).update(mx, my, mouseBtnDown);
-				if (btns.get(x + y * cols).istUeber()) {
-					selected.set(x, y);
-				}
-			}
-		}
-
-		if (Tastenbelegung.isPressed(in, Taste.Runter)) {
-			selected.y++;
-			if (selected.y >= rows)
-				selected.y = 0;
-		}
-
-		if (Tastenbelegung.isPressed(in, Taste.Hoch)) {
-			selected.y--;
-			if (selected.y < 0)
-				selected.y = rows - 1;
-		}
-
-		if (Tastenbelegung.isPressed(in, Taste.Links)) {
-			selected.x--;
-			if (selected.x < 0)
-				selected.x = cols - 1;
-		}
-
-		if (Tastenbelegung.isPressed(in, Taste.Rechts)) {
-			selected.x++;
-			if (selected.x >= cols)
-				selected.x = 0;
-		}
-
-		if (Tastenbelegung.isPressed(in, Taste.Enter)) {
-			btns.get((int) (selected.x + selected.y * cols)).doAction();	
-		}
-
-		btns.get((int) (selected.x + selected.y * cols)).setUeber(true);
-
+		this.update(mx, my, mouseBtnDown, in);
 	}
-	
-	public void update(int mx,int my, mouseBtnDown) {
-		int mx = in.getMouseX();
-		int my = in.getMouseY();
-		boolean mouseBtnDown = in.isMouseButtonDown(0);
 
+	public void update(int mx, int my, boolean mouseBtnDown, Input in) {
 		for (int x = 0; x < cols; x++) {
 			for (int y = 0; y < rows; y++) {
 				btns.get(x + y * cols).update(mx, my, mouseBtnDown);
