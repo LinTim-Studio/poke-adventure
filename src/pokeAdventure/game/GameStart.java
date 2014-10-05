@@ -111,8 +111,9 @@ public class GameStart extends BasicGameState {
 		Input in = container.getInput();
 		// isMousePresssed darf nur einmal aufgerufen werden
 		boolean mouseDown = in.isMousePressed(0);
+		boolean enterDown = in.isKeyPressed(Keyboard.KEY_RETURN);
 
-		if (mouseDown && ((fort < text.length - 1) || (fort > text.length))) {
+		if ((mouseDown||enterDown) && ((fort < text.length - 1) || (fort > text.length))) {
 			fort++;
 		}
 		if (fort >= 3) {
@@ -124,7 +125,7 @@ public class GameStart extends BasicGameState {
 			anders.update(in.getMouseX(), in.getMouseY(), mouseDown);
 		} else if (fort == text.length) {
 			textField.setFocus(true);
-			if (in.isKeyPressed(Keyboard.KEY_RETURN) && (textField.getText() != null && textField.getText().length() > 0)) {
+			if (enterDown && (textField.getText() != null && textField.getText().length() > 0)) {
 				Spieler.getInstance().name = textField.getText();
 				fort++;
 			}
