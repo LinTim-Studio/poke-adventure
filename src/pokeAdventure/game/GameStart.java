@@ -2,7 +2,6 @@ package pokeAdventure.game;
 
 import java.awt.Font;
 
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -17,11 +16,11 @@ import pokeAdventure.Main;
 import pokeAdventure.einstellungen.Taste;
 import pokeAdventure.einstellungen.Tastenbelegung;
 import pokeAdventure.interfaces.Action;
-import pokeAdventure.spieler.Spieler;
 import pokeAdventure.spieler.Geschlecht;
+import pokeAdventure.spieler.Spieler;
+import pokeAdventure.state.menu.ButtonArray;
 import pokeAdventure.state.menu.MenuButton;
 import pokeAdventure.util.TextLoader;
-import pokeAdventure.state.menu.ButtonArray;
 
 public class GameStart extends BasicGameState {
 
@@ -61,7 +60,7 @@ public class GameStart extends BasicGameState {
 				Spieler.getInstance().geschlecht = Geschlecht.weiblich;
 			}
 		});
-		
+
 		anders = new MenuButton(50, 250, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
 			@Override
 			public void action() {
@@ -69,8 +68,8 @@ public class GameStart extends BasicGameState {
 				Spieler.getInstance().geschlecht = Geschlecht.anders;
 			}
 		});
-		
-		btns = new ButtonArray(junge,maedchen,anders);
+
+		btns = new ButtonArray(junge, maedchen, anders);
 
 		papierbg = new Image("res/gameStart/Papierbg.png");
 		prof = new Image("res/gameStart/prof.png");
@@ -113,27 +112,27 @@ public class GameStart extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input in = container.getInput();
-		Input in2 = container.getInput();
 		// isMousePresssed darf nur einmal aufgerufen werden
-		boolean mouseDown = in2.isMousePressed(0);
-		boolean enterDown = Tastenbelegung.isPressed(in2, Taste.Enter);
+		boolean mouseDown = in.isMousePressed(0);
 
-		if ((mouseDown||enterDown) && ((fort < text.length - 1) || (fort > text.length))) {
-			fort++;
-		}
-		if (fort >= 3) {
-			alpha += 0.01;
-		}
 		if (fort == text.length - 1) {
 			btns.update(in);
 		} else if (fort == text.length) {
 			textField.setFocus(true);
-			if (enterDown && (textField.getText() != null && textField.getText().length() > 0)) {
+			if (Tastenbelegung.isPressed(in, Taste.Enter) && (textField.getText() != null && textField.getText().length() > 0)) {
 				Spieler.getInstance().name = textField.getText();
+				fort++;
+			}
+		} else if ((fort < text.length - 1) || (fort > text.length)) {
+			if ((mouseDown || Tastenbelegung.isPressed(in, Taste.Enter))) {
 				fort++;
 			}
 		}
 
+		// algemeine
+		if (fort >= 3) {
+			alpha += 0.01;
+		}
 		if (fort > text.length + 2)
 			game.enterState(Main.gameID);
 	}
