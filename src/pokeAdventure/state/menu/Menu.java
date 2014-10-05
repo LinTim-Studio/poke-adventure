@@ -77,10 +77,7 @@ public class Menu extends BasicGameState {
 		laden.setHorizontalZentriert(true);
 		optionen.setHorizontalZentriert(true);
 		
-		btns = new ButtonArray();
-		btns.add(newGame);
-		btns.add(laden);
-		btns.add(optionen);
+		btns = new ButtonArray(newGame, laden, optionen);
 	}
 
 	@Override
