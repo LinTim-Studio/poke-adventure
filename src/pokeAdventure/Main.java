@@ -17,6 +17,7 @@ import pokeAdventure.state.Ladebildschirm;
 import pokeAdventure.state.menu.Menu;
 import pokeAdventure.state.menu.MenuLaden;
 import pokeAdventure.state.menu.Optionen;
+import pokeAdventure.util.SoundManager;
 import pokeAdventure.util.error.Fehlermelder;
 
 /**
@@ -144,6 +145,7 @@ public class Main extends StateBasedGame {
 
 	private void init() {
 		Tastenbelegung.load();
+		SoundManager.load();
 	}
 
 	public static int getWidth() {
