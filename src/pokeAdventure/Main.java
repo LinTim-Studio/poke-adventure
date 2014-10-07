@@ -28,7 +28,7 @@ public class Main extends StateBasedGame {
 	/**
 	 * Die ID's der states
 	 */
-	public static final int menuID = 0x0, ladenID = 0x1, optionenID = 0x2, gameStartID = 0x3, ladebildschirm = 0x4, gameID = 0x5;
+	public static final int menuID = 0x0, ladenID = 0x1, optionenID = 0x2, gameStartID = 0x3, ladebildschirmID = 0x4, gameID = 0x5;
 
 	/**
 	 * Gibt an, ob wir am debuggen sind oder nicht
@@ -52,6 +52,9 @@ public class Main extends StateBasedGame {
 																			// :
 																			// 9
 
+	private static Main mainGame;
+	private static Game gameState;
+
 	/**
 	 * Die main-Methode des Spiels
 	 * 
@@ -60,8 +63,9 @@ public class Main extends StateBasedGame {
 	 */
 	public static void main(String[] args) {
 		try {
-			ScalableGame game = new ScalableGame(new Main(), defWIDTH, defHEIGHT, true);
-			AppGameContainer app = new AppGameContainer(game);
+			mainGame = new Main();
+			ScalableGame scalableGame = new ScalableGame(mainGame, defWIDTH, defHEIGHT, true);
+			AppGameContainer app = new AppGameContainer(scalableGame);
 			// AppGameContainer app = new AppGameContainer(new Main());
 			initApp(app);
 			app.start();
@@ -130,17 +134,20 @@ public class Main extends StateBasedGame {
 		// Alle Dateien sollen nacheinander geladen werden, macht Sinn bei
 		// vielen Dateien
 		LoadingList.setDeferredLoading(true);
+		
 		// Alle states gemäß ihrer ID hinzufügen
 		this.addState(new Ladebildschirm());
 		this.addState(new Menu());
 		this.addState(new MenuLaden());
 		this.addState(new Optionen());
 		this.addState(new GameStart());
-		this.addState(new Game());
 		
+		gameState = new Game();
+		this.addState(gameState);
+
 		init();
-		
-		this.enterState(ladebildschirm);
+
+		this.enterState(ladebildschirmID);
 	}
 
 	private void init() {
@@ -154,6 +161,14 @@ public class Main extends StateBasedGame {
 
 	public static int getHeight() {
 		return defHEIGHT;
+	}
+
+	public static Game getGameState() {
+		return gameState;
+	}
+
+	public static StateBasedGame getMainGame() {
+		return mainGame;
 	}
 
 }

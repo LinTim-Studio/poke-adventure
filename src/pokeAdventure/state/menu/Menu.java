@@ -58,7 +58,9 @@ public class Menu extends BasicGameState {
 		laden = new MenuButton(x, y + dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
-				game.enterState(Main.ladenID, tranOut, tranIn);
+				// für Testzwecke
+				game.enterState(Main.gameID);
+//				game.enterState(Main.ladenID, tranOut, tranIn);
 			}
 		});
 		// tempörär zum Vollbildwechsel-Button missbraucht :)

@@ -23,18 +23,22 @@ public class Game extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		map = new TiledMap("res/map/map.tmx");
-		gui = new GUI();
+		gui = new GUI(container);
 		mapOffset = new Vector2f(0,0);
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		//temp
-		g.fillRect(0, 0, Main.getWidth(), Main.getHeight());
+		if (showGUI) {
+			gui.render(container, g);
+		} else {
+			renderScene(container, game, g);
+		}
+	}
+	
+	public void renderScene(GameContainer container, StateBasedGame game, Graphics g) {
 		map.render((int) mapOffset.x, (int) mapOffset.y);
 		Spieler.getInstance().render(container, g);
-		if (showGUI)
-			gui.render(container, g);
 	}
 
 	@Override
