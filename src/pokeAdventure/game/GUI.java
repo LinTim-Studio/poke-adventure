@@ -1,29 +1,43 @@
 package pokeAdventure.game;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.opengl.shader.ShaderProgram;
 import org.newdawn.slick.tiled.TiledMap;
 
 import pokeAdventure.Main;
+import pokeAdventure.interfaces.Action;
+import pokeAdventure.state.menu.ButtonArray;
+import pokeAdventure.state.menu.MenuButton;
 
 public class GUI {
 
+	// Blur effect
 	private ShaderProgram blurHoriz, blurVert;
 	private Graphics postGraphicsA, postGraphicsB;
 	private Image postImageA, postImageB;
 	private float radius = 1.1f;
-	private boolean rendering;
+
+	// Menu
+	private Color bg;
+	private float border;
+	ButtonArray btns;
 
 	public GUI(GameContainer container) {
+		initShaders(container);
+		initMenu();
+	}
 
+	private void initShaders(GameContainer container) {
 		try {
 			// first we will try to create our offscreen image
 			// this may fail in very very rare cases if the user has no
 			// FBO/PBuffer support
-			postImageA =  Image.createOffscreenImage(container.getWidth(), container.getHeight());
+			postImageA = Image.createOffscreenImage(container.getWidth(), container.getHeight());
 			postGraphicsA = postImageA.getGraphics();
 			postImageB = Image.createOffscreenImage(container.getWidth(), container.getHeight());
 			postGraphicsB = postImageB.getGraphics();
@@ -53,19 +67,62 @@ public class GUI {
 																		// of
 																		// img
 			blurVert.setUniform1f("radius", radius);
-			
+
 			ShaderProgram.unbindAll();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void render(GameContainer container, Graphics g) {
-		// Richtig billige Abfrage
-		if (rendering)
-			return;
-		rendering = true;
+	private void initMenu() {
+		bg = new Color(170, 170, 170, 200); // leicht grau
+		border = 0.1f;
 
+		try {
+			int z = 4;
+			MenuButton test1 = new MenuButton(Main.getWidth() / 2, Main.getHeight() / z * 1, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
+				@Override
+				public void action() {
+					System.out.println("1");
+				}
+			});
+			
+			MenuButton test2 = new MenuButton(Main.getWidth() / 2, Main.getHeight() / z * 2, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
+				@Override
+				public void action() {
+					System.out.println("2");
+				}
+			});
+			
+			MenuButton test3 = new MenuButton(Main.getWidth() / 2, Main.getHeight() / z * 3, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
+				@Override
+				public void action() {
+					System.out.println("3");
+				}
+			});
+
+			test1.setHorizontalZentriert(true);
+			test2.setHorizontalZentriert(true);
+			test3.setHorizontalZentriert(true);
+			
+			btns = new ButtonArray(test1, test2, test3);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void render(GameContainer container, Graphics g) {
+		renderBlurredBackground(container, g);
+		renderMenuBack(container, g);
+		btns.render();
+	}
+
+	private void renderMenuBack(GameContainer container, Graphics g) {
+		g.setColor(bg);
+		g.fillRoundRect(border * Main.getWidth(), border * Main.getHeight(), (1 - 2 * border) * Main.getWidth(), (1 - 2 * border) * Main.getHeight(), 10);
+	}
+
+	private void renderBlurredBackground(GameContainer container, Graphics g) {
 		// 1. first we render our scene without blur into an off-screen buffer
 
 		// this is just to be safe when using multiple contexts
@@ -112,18 +169,11 @@ public class GUI {
 
 		// stop using shaders
 		ShaderProgram.unbindAll();
-
-		// g.setColor(new Color(10, 10, 10, 100));
-		// int x = Main.getWidth()/10;
-		// int y = Main.getHeight()/10;
-		// g.fillRect(x, y, Main.getWidth() - 2 * x, Main.getHeight() - 2 * y);
-
-		rendering = false;
-
 	}
 
 	public void update(GameContainer container, int delta, TiledMap map) {
-		// TODO Auto-generated method stub
+		Input in = container.getInput();
+		btns.update(in);
 	}
 
 }

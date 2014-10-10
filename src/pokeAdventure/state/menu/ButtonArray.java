@@ -38,17 +38,17 @@ public class ButtonArray {
 	public void update(Input in) {
 		int mx = in.getMouseX();
 		int my = in.getMouseY();
-		boolean mouseBtnDown = in.isMouseButtonDown(0);
-		this.update(mx, my, mouseBtnDown, in);
+		boolean isMousePressed = in.isMousePressed(0);
+		this.update(mx, my, isMousePressed, in);
 	}
 
-	public void update(int mx, int my, boolean mouseBtnDown, Input in) {
+	public void update(int mx, int my, boolean isMousePressed, Input in) {
 		
 		Vector2f before = selected.copy();
 		
 		for (int x = 0; x < cols; x++) {
 			for (int y = 0; y < rows; y++) {
-				btns.get(x + y * cols).update(mx, my, mouseBtnDown);
+				btns.get(x + y * cols).update(mx, my, isMousePressed);
 				if (btns.get(x + y * cols).istUeber()) {
 					selected.set(x, y);
 				}
