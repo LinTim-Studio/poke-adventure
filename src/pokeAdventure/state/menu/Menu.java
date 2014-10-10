@@ -23,6 +23,7 @@ public class Menu extends BasicGameState {
 	MenuButton newGame;
 	MenuButton laden;
 	MenuButton optionen;
+	MenuButton ende;
 
 	int selected;
 
@@ -74,12 +75,20 @@ public class Menu extends BasicGameState {
 				}
 			}
 		});
+		
+		ende = new MenuButton(x, y + 3 * dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
+			@Override
+			public void action() {
+				System.exit(0);
+			}
+		});
 
 		newGame.setHorizontalZentriert(true);
 		laden.setHorizontalZentriert(true);
 		optionen.setHorizontalZentriert(true);
+		ende.setHorizontalZentriert(true);
 		
-		btns = new ButtonArray(newGame, laden, optionen);
+		btns = new ButtonArray(newGame, laden, optionen,ende);
 	}
 
 	@Override

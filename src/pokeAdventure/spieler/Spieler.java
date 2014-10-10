@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.Image;
 
 import pokeAdventure.einstellungen.Taste;
 import pokeAdventure.einstellungen.Tastenbelegung;
@@ -15,8 +16,12 @@ public class Spieler {
 
 	public String name;
 	public Geschlecht geschlecht;
+	public Richtung laufrichtung;
 	
 	private Vector2f koordinaten;
+	
+	private int dx;
+	private int dy;
 	
 	/*
 	 * Singleton
@@ -50,19 +55,47 @@ public class Spieler {
 	}
 
 	private void updateLaufen(Input in, int delta, TiledMap map) {
+		dx=dy=0;
+		
 		if (Tastenbelegung.isDown(in, Taste.Hoch))
-			koordinaten.y-=delta;
+		{
+			dy-=delta;
+		}
 		if (Tastenbelegung.isDown(in, Taste.Runter))
-			koordinaten.y+=delta;
+			dy+=delta;
 		if (Tastenbelegung.isDown(in, Taste.Links))
-			koordinaten.x-=delta;
+			dx-=delta;
 		if (Tastenbelegung.isDown(in, Taste.Rechts))
-			koordinaten.x+=delta;
+			dx+=delta;
 		
 	}
 
 	public void render(GameContainer container, Graphics g) {
 		//TODO render
+		Image i;
+		
+		if(dy>0)
+		{
+			i= gibPic(Richtung.oben);
+		}
+		else if(dy<0)
+		{
+			i = gibPic(Richtung.unten);
+		}
+		else if(dx>0)
+		{
+			i= gibPic(Richtung.rechts);
+		}
+		else
+		{
+			i = gibPic(Richtung.links);
+		}
+		
+	}
+	
+	public Image gibPic(Richtung)
+	{
+		
 	}
 	
 	public Vector2f getKoordinaten() {
