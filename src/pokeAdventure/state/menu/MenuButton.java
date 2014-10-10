@@ -6,12 +6,12 @@ import org.newdawn.slick.SlickException;
 import pokeAdventure.interfaces.Action;
 
 public class MenuButton {
-	private int x, y;
-	private Image bild, bildHighlight;
+	protected int x, y;
+	protected Image bild, bildHighlight;
 
-	private Action event;
+	protected Action event;
 
-	private boolean ueber;
+	protected boolean ueber;
 	/**
 	 * Bestimmt, ob der Knopf auf der x Achse zentriert sein soll.
 	 */
@@ -36,10 +36,10 @@ public class MenuButton {
 			bild.draw(x + getHorizontaleVerschiebung(), y);
 	}
 
-	public void update(int mx, int my, boolean mouseBtnDown) {
+	public void update(int mx, int my, boolean isMousePressed, boolean isMouseDown) {
 		if (istUeber(mx, my)) {
 			ueber = true;
-			if (mouseBtnDown)
+			if (isMousePressed)
 				event.action();
 		} else
 			ueber = false;
@@ -61,7 +61,7 @@ public class MenuButton {
 	 * Ermittelt je nach Bildgröße die Verschiebung
 	 * @return die Verschiebung
 	 */
-	private int getHorizontaleVerschiebung() {
+	protected int getHorizontaleVerschiebung() {
 		if (ueber)
 			return -((horizontalZentriert) ? bildHighlight.getWidth() / 2 : 0);
 		else
