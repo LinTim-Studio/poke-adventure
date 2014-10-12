@@ -53,7 +53,7 @@ public class GameStart extends BasicGameState {
 			}
 		});
 
-		maedchen = new MenuButton(50, 220, new Image("res/gameStart/Mädchen_Icon.png"), new Image("res/gameStart/Mädchen_IconGlow.png"), new Action() {
+		maedchen = new MenuButton(50, 220, new Image("res/gameStart/Maedchen_Icon.png"), new Image("res/gameStart/Maedchen_IconGlow.png"), new Action() {
 			@Override
 			public void action() {
 				fort = text.length;
