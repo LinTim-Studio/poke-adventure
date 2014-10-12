@@ -98,6 +98,7 @@ public class GUI {
 				@Override
 				public void action() {
 					System.out.println("3");
+					Main.getMainGame().enterState(0x0);
 				}
 			});
 
