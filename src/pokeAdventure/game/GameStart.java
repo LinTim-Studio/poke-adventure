@@ -20,6 +20,7 @@ import pokeAdventure.spieler.Geschlecht;
 import pokeAdventure.spieler.Spieler;
 import pokeAdventure.state.menu.ButtonArray;
 import pokeAdventure.state.menu.MenuButton;
+import pokeAdventure.util.SpriteManager;
 import pokeAdventure.util.TextLoader;
 
 public class GameStart extends BasicGameState {
@@ -32,7 +33,6 @@ public class GameStart extends BasicGameState {
 	private int fort;
 	private String[] text;
 	private TextField textField;
-	private Image papierbg, prof, pika;
 	private ButtonArray btns;
 
 	@Override
@@ -45,7 +45,7 @@ public class GameStart extends BasicGameState {
 		}
 		fort = 0;
 
-		junge = new MenuButton(50, 150, new Image("res/gameStart/Junge_Icon.png"), new Image("res/gameStart/Junge_IconGlow.png"), new Action() {
+		junge = new MenuButton(50, 150, SpriteManager.geschlechtJunge, SpriteManager.geschlechtJungeOver, new Action() {
 			@Override
 			public void action() {
 				fort = text.length;
@@ -53,7 +53,7 @@ public class GameStart extends BasicGameState {
 			}
 		});
 
-		maedchen = new MenuButton(50, 220, new Image("res/gameStart/Maedchen_Icon.png"), new Image("res/gameStart/Maedchen_IconGlow.png"), new Action() {
+		maedchen = new MenuButton(50, 220, SpriteManager.geschlechtMaedchen, SpriteManager.geschlechtMaedchenOver, new Action() {
 			@Override
 			public void action() {
 				fort = text.length;
@@ -61,7 +61,7 @@ public class GameStart extends BasicGameState {
 			}
 		});
 
-		anders = new MenuButton(50, 290, new Image("res/gameStart/Anderes_Icon.png"), new Image("res/gameStart/Anderes_IconGlow.png"), new Action() {
+		anders = new MenuButton(50, 290, SpriteManager.geschlechtAnders, SpriteManager.geschlechtAndersOver, new Action() {
 			@Override
 			public void action() {
 				fort = text.length;
@@ -70,10 +70,6 @@ public class GameStart extends BasicGameState {
 		});
 
 		btns = new ButtonArray(junge, maedchen, anders);
-
-		papierbg = new Image("res/gameStart/Papierbg.png");
-		prof = new Image("res/gameStart/prof.png");
-		pika = new Image("res/gameStart/025.png");
 
 		textField = new TextField(container, t, 50, 150, 250, 25);
 
@@ -84,14 +80,14 @@ public class GameStart extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
 		g.fillRect(0, 0, container.getWidth(), container.getHeight());
-		g.drawImage(papierbg, 0, 0);
-		g.drawImage(prof, 475, 125);
+		g.drawImage(SpriteManager.papierbg, 0, 0);
+		g.drawImage(SpriteManager.prof, 475, 125);
 
 		if (fort >= 0 && fort < text.length)
 			write(text[fort]);
 
 		if (fort >= 3) {
-			Image im = pika.copy();
+			Image im = SpriteManager.pikachu.copy();
 			if (alpha < 1.0f) {
 				im.setAlpha(alpha);
 			}
@@ -113,10 +109,10 @@ public class GameStart extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input in = container.getInput();
 		// isMousePresssed darf nur einmal aufgerufen werden
-		boolean mouseDown = in.isMousePressed(0);
+		boolean mousePressed = in.isMousePressed(0);
 
 		if (fort == text.length - 1) {
-			btns.update(in);
+			btns.update(in.getMouseX(), in.getMouseY(), mousePressed, in);
 		} else if (fort == text.length) {
 			textField.setFocus(true);
 			if (Tastenbelegung.isPressed(in, Taste.Enter) && (textField.getText() != null && textField.getText().length() > 0)) {
@@ -124,7 +120,7 @@ public class GameStart extends BasicGameState {
 				fort++;
 			}
 		} else if ((fort < text.length - 1) || (fort > text.length)) {
-			if ((mouseDown || Tastenbelegung.isPressed(in, Taste.Enter))) {
+			if ((mousePressed || Tastenbelegung.isPressed(in, Taste.Enter))) {
 				fort++;
 			}
 		}

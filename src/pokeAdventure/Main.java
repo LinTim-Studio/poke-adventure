@@ -18,6 +18,7 @@ import pokeAdventure.state.menu.Menu;
 import pokeAdventure.state.menu.MenuLaden;
 import pokeAdventure.state.menu.Optionen;
 import pokeAdventure.util.SoundManager;
+import pokeAdventure.util.SpriteManager;
 import pokeAdventure.util.error.Fehlermelder;
 
 /**
@@ -134,6 +135,7 @@ public class Main extends StateBasedGame {
 		// Alle Dateien sollen nacheinander geladen werden, macht Sinn bei
 		// vielen Dateien
 		LoadingList.setDeferredLoading(true);
+		init();
 		
 		// Alle states gemäß ihrer ID hinzufügen
 		this.addState(new Ladebildschirm());
@@ -145,12 +147,12 @@ public class Main extends StateBasedGame {
 		gameState = new Game();
 		this.addState(gameState);
 
-		init();
 
 		this.enterState(ladebildschirmID);
 	}
 
 	private void init() {
+		SpriteManager.load();
 		Tastenbelegung.load();
 		SoundManager.load();
 	}

@@ -1,7 +1,8 @@
 package pokeAdventure.state.menu;
 
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+
+import pokeAdventure.util.SpriteManager;
 
 public class Slider extends MenuButton {
 
@@ -9,16 +10,9 @@ public class Slider extends MenuButton {
 	float value;
 	int start, end, width, height;
 	int oldPos = -1;
-	Image sliderImg, sliderHighlightImg;
 
 	public Slider(int x, int y, int width, int height, int start, int def, int end) throws SlickException {
-		super(x, y, new Image("res/menu/slider/sliderBack.png").getScaledCopy(width, height), new Image("res/menu/slider/sliderBack.png").getScaledCopy(width, height), null);
-
-		sliderImg = new Image("res/menu/slider/slider.png");
-		sliderImg = sliderImg.getScaledCopy(height / sliderImg.getHeight());
-
-		sliderHighlightImg = new Image("res/menu/slider/sliderHighlight.png");
-		sliderHighlightImg = sliderHighlightImg.getScaledCopy(height / sliderHighlightImg.getHeight());
+		super(x, y, SpriteManager.sliderBack.getScaledCopy(width, height), SpriteManager.sliderBack.getScaledCopy(width, height), null);
 
 		value = (def - start) / (float) (end - start);
 		this.end = end;
@@ -32,9 +26,9 @@ public class Slider extends MenuButton {
 		super.zeichneButton();
 
 		if (ueber) {
-			sliderHighlightImg.draw(x + getHorizontaleVerschiebung() + getProgressVerschiebung(), y);
+			SpriteManager.sliderOver.draw(x + getHorizontaleVerschiebung() + getProgressVerschiebung(), y, (SpriteManager.sliderOver.getWidth() * width) / SpriteManager.sliderBack.getWidth(), (SpriteManager.sliderOver.getHeight() * height) / SpriteManager.sliderBack.getHeight());
 		} else {
-			sliderImg.draw(x + getHorizontaleVerschiebung() + getProgressVerschiebung(), y);
+			SpriteManager.slider.draw(x + getHorizontaleVerschiebung() + getProgressVerschiebung(), y, (SpriteManager.slider.getWidth() * width) / SpriteManager.sliderBack.getWidth(), (SpriteManager.slider.getHeight() * height) / SpriteManager.sliderBack.getHeight());
 		}
 	}
 

@@ -3,7 +3,6 @@ package pokeAdventure.state.menu;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.openal.SoundStore;
@@ -16,6 +15,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import pokeAdventure.Main;
 import pokeAdventure.interfaces.Action;
 import pokeAdventure.transitions.LightningTransition;
+import pokeAdventure.util.SpriteManager;
 
 public class Menu extends BasicGameState {
 
@@ -30,15 +30,10 @@ public class Menu extends BasicGameState {
 
 	int selected;
 
-	Image back;
-
 	int testInt;
 
 	@Override
 	public void init(final GameContainer container, final StateBasedGame game) throws SlickException {
-		// Hintergrundbild laden
-		back = new Image("res/menu/menu.png");
-
 		// ein gemeinsames x für alle buttons
 		int x = Main.getWidth() / 2;
 		// der Startwert für die y Richtung
@@ -54,14 +49,14 @@ public class Menu extends BasicGameState {
 		tranIn.addTransition(new LightningTransition(time));
 		tranIn.addTransition(new FadeInTransition(Color.black, time));
 
-		newGame = new MenuButton(x, y, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
+		newGame = new MenuButton(x, y, SpriteManager.btnNeuesSpiel, SpriteManager.btnNeuesSpielOver, new Action() {
 			@Override
 			public void action() {
 				game.enterState(Main.gameStartID, tranOut, tranIn);
 			}
 		});
 
-		laden = new MenuButton(x, y + dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
+		laden = new MenuButton(x, y + dy, SpriteManager.btnSpielLaden, SpriteManager.btnSpielLadenOver, new Action() {
 			@Override
 			public void action() {
 				// für Testzwecke
@@ -70,7 +65,7 @@ public class Menu extends BasicGameState {
 			}
 		});
 		// tempörär zum Vollbildwechsel-Button missbraucht :)
-		optionen = new MenuButton(x, y + 2 * dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
+		optionen = new MenuButton(x, y + 2 * dy, SpriteManager.btnOptionen, SpriteManager.btnOptionenOver, new Action() {
 			@Override
 			public void action() {
 				try {
@@ -81,7 +76,7 @@ public class Menu extends BasicGameState {
 			}
 		});
 		//lalalala
-		ende = new MenuButton(x, y + 3 * dy, "res/menu/buttons/Beenden_NoGlow.png", "res/menu/buttons/Beenden_Glow.png", new Action() {
+		ende = new MenuButton(x, y + 3 * dy, SpriteManager.btnBeenden, SpriteManager.btnBeendenOver, new Action() {
 			@Override
 			public void action() {
 				System.exit(0);
@@ -103,7 +98,7 @@ public class Menu extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		// füllt automatisch den ganzen Bildschirm
-		back.draw(0, 0, Main.getWidth(), Main.getHeight());
+		SpriteManager.menuBack.draw(0, 0, Main.getWidth(), Main.getHeight());
 
 		btns.render();
 	}

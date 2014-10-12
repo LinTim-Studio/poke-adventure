@@ -13,6 +13,7 @@ import pokeAdventure.Main;
 import pokeAdventure.interfaces.Action;
 import pokeAdventure.state.menu.ButtonArray;
 import pokeAdventure.state.menu.MenuButton;
+import pokeAdventure.util.SpriteManager;
 
 public class GUI {
 
@@ -78,39 +79,33 @@ public class GUI {
 		bg = new Color(170, 170, 170, 200); // leicht grau
 		border = 0.1f;
 
-		try {
-			int z = 4;
-			MenuButton test1 = new MenuButton(Main.getWidth() / 2, Main.getHeight() / z * 1, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
-				@Override
-				public void action() {
-					System.out.println("1");
-				}
-			});
-			
-			MenuButton test2 = new MenuButton(Main.getWidth() / 2, Main.getHeight() / z * 2, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
-				@Override
-				public void action() {
-					System.out.println("2");
-				}
-			});
-			
-			MenuButton test3 = new MenuButton(Main.getWidth() / 2, Main.getHeight() / z * 3, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
-				@Override
-				public void action() {
-					System.out.println("3");
-					Main.getMainGame().enterState(0x0);
-					//lalalala
-				}
-			});
+		int z = 4;
+		MenuButton test1 = new MenuButton(Main.getWidth() / 2, Main.getHeight() / z * 1, SpriteManager.btnNeuesSpiel, SpriteManager.btnNeuesSpielOver, new Action() {
+			@Override
+			public void action() {
+				System.out.println("1");
+			}
+		});
 
-			test1.setHorizontalZentriert(true);
-			test2.setHorizontalZentriert(true);
-			test3.setHorizontalZentriert(true);
-			
-			btns = new ButtonArray(test1, test2, test3);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+		MenuButton test2 = new MenuButton(Main.getWidth() / 2, Main.getHeight() / z * 2, SpriteManager.btnNeuesSpiel, SpriteManager.btnNeuesSpielOver, new Action() {
+			@Override
+			public void action() {
+				System.out.println("1");
+			}
+		});
+
+		MenuButton test3 = new MenuButton(Main.getWidth() / 2, Main.getHeight() / z * 3, SpriteManager.btnNeuesSpiel, SpriteManager.btnNeuesSpielOver, new Action() {
+			@Override
+			public void action() {
+				Main.getMainGame().enterState(Main.menuID);
+			}
+		});
+
+		test1.setHorizontalZentriert(true);
+		test2.setHorizontalZentriert(true);
+		test3.setHorizontalZentriert(true);
+
+		btns = new ButtonArray(test1, test2, test3);
 	}
 
 	public void render(GameContainer container, Graphics g) {
