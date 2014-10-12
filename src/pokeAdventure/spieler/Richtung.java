@@ -1,5 +1,5 @@
 package pokeAdventure.spieler;
 
 public enum Richtung {
-	unten,oben,rechts,links
+	sueden,norden,osten,westen,suedwesten,nordwesten,nordosten,suedosten
 }
