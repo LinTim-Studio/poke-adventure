@@ -3,6 +3,7 @@ package pokeAdventure.spieler;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.Image;
@@ -74,28 +75,49 @@ public class Spieler {
 		//TODO render
 		Image i;
 		
-		if(dy>0)
+		if((dy>0)&&(dx==0))
 		{
-			i= gibPic(Richtung.oben);
+			i= gibPic(Richtung.norden);
 		}
-		else if(dy<0)
+		else if((dy<0)&&(dx==0))
 		{
-			i = gibPic(Richtung.unten);
+			i = gibPic(Richtung.sueden);
 		}
-		else if(dx>0)
+		else if((dx>0)&&(dy==0))
 		{
-			i= gibPic(Richtung.rechts);
+			i= gibPic(Richtung.osten);
+		}
+		else if((dx>0)&&(dy>0))
+		{
+			i=gibPic(Richtung.nordosten);
+		}
+		else if((dx>0)&&(dy<0))
+		{
+			i=gibPic(Richtung.suedosten);
+		}
+		else if((dx<0)&&(dy>0))
+		{
+			i=gibPic(Richtung.nordwesten);
 		}
 		else
 		{
-			i = gibPic(Richtung.links);
+			i = gibPic(Richtung.suedwesten);
 		}
+		
+		i.draw();
 		
 	}
 	
-	public Image gibPic(Richtung)
+	public Image gibPic(Richtung a)
 	{
-		
+		Image i = null;
+		try {
+			i=new Image("res/gameStart/025.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
 	}
 	
 	public Vector2f getKoordinaten() {

@@ -45,7 +45,7 @@ public class GameStart extends BasicGameState {
 		}
 		fort = 0;
 
-		junge = new MenuButton(50, 150, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
+		junge = new MenuButton(50, 150, new Image("res/gameStart/Junge_Icon.png"), new Image("res/gameStart/Junge_IconGlow.png"), new Action() {
 			@Override
 			public void action() {
 				fort = text.length;
@@ -53,7 +53,7 @@ public class GameStart extends BasicGameState {
 			}
 		});
 
-		maedchen = new MenuButton(50, 200, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
+		maedchen = new MenuButton(50, 220, new Image("res/gameStart/Mädchen_Icon.png"), new Image("res/gameStart/Mädchen_IconGlow.png"), new Action() {
 			@Override
 			public void action() {
 				fort = text.length;
@@ -61,7 +61,7 @@ public class GameStart extends BasicGameState {
 			}
 		});
 
-		anders = new MenuButton(50, 250, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
+		anders = new MenuButton(50, 290, new Image("res/gameStart/Anderes_Icon.png"), new Image("res/gameStart/Anderes_IconGlow.png"), new Action() {
 			@Override
 			public void action() {
 				fort = text.length;
