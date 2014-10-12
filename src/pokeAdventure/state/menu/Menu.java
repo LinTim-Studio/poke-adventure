@@ -80,8 +80,8 @@ public class Menu extends BasicGameState {
 				}
 			}
 		});
-		
-		ende = new MenuButton(x, y + 3 * dy, "res/menu/buttons/Beenden_Glow.png", "res/menu/buttons/Beenden_Glow.png", new Action() {
+		//lalalala
+		ende = new MenuButton(x, y + 3 * dy, "res/menu/buttons/Beenden_NoGlow.png", "res/menu/buttons/Beenden_Glow.png", new Action() {
 			@Override
 			public void action() {
 				System.exit(0);
