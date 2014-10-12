@@ -2,7 +2,6 @@ package pokeAdventure.game;
 
 import java.awt.Font;
 
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -14,9 +13,12 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import pokeAdventure.Main;
+import pokeAdventure.einstellungen.Taste;
+import pokeAdventure.einstellungen.Tastenbelegung;
 import pokeAdventure.interfaces.Action;
-import pokeAdventure.spieler.Spieler;
 import pokeAdventure.spieler.Geschlecht;
+import pokeAdventure.spieler.Spieler;
+import pokeAdventure.state.menu.ButtonArray;
 import pokeAdventure.state.menu.MenuButton;
 import pokeAdventure.util.TextLoader;
 
@@ -31,6 +33,7 @@ public class GameStart extends BasicGameState {
 	private String[] text;
 	private TextField textField;
 	private Image papierbg, prof, pika;
+	private ButtonArray btns;
 
 	@Override
 	public void init(GameContainer container, final StateBasedGame game) throws SlickException {
@@ -57,7 +60,7 @@ public class GameStart extends BasicGameState {
 				Spieler.getInstance().geschlecht = Geschlecht.weiblich;
 			}
 		});
-		
+
 		anders = new MenuButton(50, 250, new Image("res/menu/buttons/neuesSpiel.png"), new Image("res/menu/buttons/neuesSpielHighlight.png"), new Action() {
 			@Override
 			public void action() {
@@ -65,6 +68,8 @@ public class GameStart extends BasicGameState {
 				Spieler.getInstance().geschlecht = Geschlecht.anders;
 			}
 		});
+
+		btns = new ButtonArray(junge, maedchen, anders);
 
 		papierbg = new Image("res/gameStart/Papierbg.png");
 		prof = new Image("res/gameStart/prof.png");
@@ -94,9 +99,7 @@ public class GameStart extends BasicGameState {
 		}
 
 		if (fort == text.length - 1) {
-			junge.zeichneButton();
-			maedchen.zeichneButton();
-			anders.zeichneButton();
+			btns.render();
 		} else if (fort == text.length) {
 			write("Du bist also ein " + Spieler.getInstance().getGeschlechtsBezeichnung() + ". Und wie ist dein Name?");
 			textField.render(container, g);
@@ -112,24 +115,24 @@ public class GameStart extends BasicGameState {
 		// isMousePresssed darf nur einmal aufgerufen werden
 		boolean mouseDown = in.isMousePressed(0);
 
-		if (mouseDown && ((fort < text.length - 1) || (fort > text.length))) {
-			fort++;
-		}
-		if (fort >= 3) {
-			alpha += 0.01;
-		}
 		if (fort == text.length - 1) {
-			junge.update(in.getMouseX(), in.getMouseY(), mouseDown);
-			maedchen.update(in.getMouseX(), in.getMouseY(), mouseDown);
-			anders.update(in.getMouseX(), in.getMouseY(), mouseDown);
+			btns.update(in);
 		} else if (fort == text.length) {
 			textField.setFocus(true);
-			if (in.isKeyPressed(Keyboard.KEY_RETURN) && (textField.getText() != null && textField.getText().length() > 0)) {
+			if (Tastenbelegung.isPressed(in, Taste.Enter) && (textField.getText() != null && textField.getText().length() > 0)) {
 				Spieler.getInstance().name = textField.getText();
+				fort++;
+			}
+		} else if ((fort < text.length - 1) || (fort > text.length)) {
+			if ((mouseDown || Tastenbelegung.isPressed(in, Taste.Enter))) {
 				fort++;
 			}
 		}
 
+		// algemeine
+		if (fort >= 3) {
+			alpha += 0.01;
+		}
 		if (fort > text.length + 2)
 			game.enterState(Main.gameID);
 	}

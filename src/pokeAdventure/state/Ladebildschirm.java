@@ -77,7 +77,7 @@ public class Ladebildschirm extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return Main.ladebildschirm;
+		return Main.ladebildschirmID;
 	}
 
 }

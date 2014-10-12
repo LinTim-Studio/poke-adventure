@@ -6,6 +6,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.CombinedTransition;
@@ -19,14 +20,19 @@ import pokeAdventure.transitions.LightningTransition;
 public class Menu extends BasicGameState {
 
 	ButtonArray btns;
-	
+
 	MenuButton newGame;
 	MenuButton laden;
 	MenuButton optionen;
+	MenuButton ende;
+
+	Slider test;
 
 	int selected;
 
 	Image back;
+
+	int testInt;
 
 	@Override
 	public void init(final GameContainer container, final StateBasedGame game) throws SlickException {
@@ -58,7 +64,9 @@ public class Menu extends BasicGameState {
 		laden = new MenuButton(x, y + dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
 			@Override
 			public void action() {
-				game.enterState(Main.ladenID, tranOut, tranIn);
+				// für Testzwecke
+				game.enterState(Main.gameID);
+				// game.enterState(Main.ladenID, tranOut, tranIn);
 			}
 		});
 		// tempörär zum Vollbildwechsel-Button missbraucht :)
@@ -72,12 +80,24 @@ public class Menu extends BasicGameState {
 				}
 			}
 		});
+		
+		ende = new MenuButton(x, y + 3 * dy, "res/menu/buttons/neuesSpiel.png", "res/menu/buttons/neuesSpielHighlight.png", new Action() {
+			@Override
+			public void action() {
+				System.exit(0);
+			}
+		});
+
+		test = new Slider(Main.getWidth() / 2, 10, 500, 100, 0, 50, 100);
+		test.setHorizontalZentriert(true);
 
 		newGame.setHorizontalZentriert(true);
 		laden.setHorizontalZentriert(true);
 		optionen.setHorizontalZentriert(true);
+		ende.setHorizontalZentriert(true);
 		
-		btns = new ButtonArray(newGame, laden, optionen);
+		btns = new ButtonArray(newGame, laden, optionen, ende, test);
+
 	}
 
 	@Override
@@ -92,6 +112,7 @@ public class Menu extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input in = container.getInput();
 		btns.update(in);
+		SoundStore.get().setSoundVolume(test.getValue() / (float) 100);
 	}
 
 	@Override

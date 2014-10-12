@@ -7,6 +7,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 import pokeAdventure.einstellungen.Taste;
 import pokeAdventure.einstellungen.Tastenbelegung;
+import pokeAdventure.util.SoundManager;
 
 public class ButtonArray {
 
@@ -33,15 +34,22 @@ public class ButtonArray {
 			menuButton.zeichneButton();
 		}
 	}
-
+	
 	public void update(Input in) {
 		int mx = in.getMouseX();
 		int my = in.getMouseY();
-		boolean mouseBtnDown = in.isMouseButtonDown(0);
+		boolean isMousePressed = in.isMousePressed(0);
+		this.update(mx, my, isMousePressed, in);
+	}
 
+	public void update(int mx, int my, boolean isMousePressed, Input in) {
+		
+		Vector2f before = selected.copy();
+		boolean isMouseDown = in.isMouseButtonDown(0);
+		
 		for (int x = 0; x < cols; x++) {
 			for (int y = 0; y < rows; y++) {
-				btns.get(x + y * cols).update(mx, my, mouseBtnDown);
+				btns.get(x + y * cols).update(mx, my, isMousePressed, isMouseDown);
 				if (btns.get(x + y * cols).istUeber()) {
 					selected.set(x, y);
 				}
@@ -77,6 +85,9 @@ public class ButtonArray {
 		}
 
 		btns.get((int) (selected.x + selected.y * cols)).setUeber(true);
+		
+		if (!selected.equals(before))
+			SoundManager.beep.play();
 
 	}
 
