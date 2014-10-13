@@ -5,7 +5,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.CombinedTransition;
@@ -68,11 +67,7 @@ public class Menu extends BasicGameState {
 		optionen = new MenuButton(x, y + 2 * dy, SpriteManager.btnOptionen, SpriteManager.btnOptionenOver, new Action() {
 			@Override
 			public void action() {
-				try {
-					container.setFullscreen(!container.isFullscreen());
-				} catch (SlickException e) {
-					e.printStackTrace();
-				}
+				game.enterState(Main.optionenID);
 			}
 		});
 		//lalalala
@@ -83,15 +78,12 @@ public class Menu extends BasicGameState {
 			}
 		});
 
-		test = new Slider(Main.getWidth() / 2, 10, 500, 100, 0, 50, 100);
-		test.setHorizontalZentriert(true);
-
 		newGame.setHorizontalZentriert(true);
 		laden.setHorizontalZentriert(true);
 		optionen.setHorizontalZentriert(true);
 		ende.setHorizontalZentriert(true);
 		
-		btns = new ButtonArray(newGame, laden, optionen, ende, test);
+		btns = new ButtonArray(newGame, laden, optionen, ende);
 
 	}
 
@@ -107,7 +99,6 @@ public class Menu extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input in = container.getInput();
 		btns.update(in);
-		SoundStore.get().setSoundVolume(test.getValue() / (float) 100);
 	}
 
 	@Override

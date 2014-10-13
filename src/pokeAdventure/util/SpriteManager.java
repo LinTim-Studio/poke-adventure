@@ -15,6 +15,7 @@ public abstract class SpriteManager {
 
 	public static Image menuBack;
 	public static Image btnNeuesSpiel, btnNeuesSpielOver, btnSpielLaden, btnSpielLadenOver, btnOptionen, btnOptionenOver, btnBeenden, btnBeendenOver;
+	public static Image btnSpeichern, btnSpeichernOver;
 	public static Image geschlechtJunge, geschlechtJungeOver, geschlechtMaedchen, geschlechtMaedchenOver, geschlechtAnders, geschlechtAndersOver;
 	public static Image pikachu, papierbg, prof;
 	public static Image sliderBack, slider, sliderOver;
@@ -38,6 +39,11 @@ public abstract class SpriteManager {
 
 			btnBeenden = new Image("res/menu/buttons/beenden.png");
 			btnBeendenOver = new Image("res/menu/buttons/beendenOver.png");
+			
+			btnSpeichern = new Image("res/menu/buttons/speichern.png");
+			btnSpeichernOver = new Image("res/menu/buttons/speichernOver.png");
+			
+			
 
 			// start
 			geschlechtJunge = new Image("res/gameStart/jungeIcon.png");

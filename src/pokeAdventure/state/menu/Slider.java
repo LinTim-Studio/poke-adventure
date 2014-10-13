@@ -7,9 +7,9 @@ import pokeAdventure.util.SpriteManager;
 public class Slider extends MenuButton {
 
 	// 0.0 - 1.0
-	float value;
-	int start, end, width, height;
-	int oldPos = -1;
+	private float value;
+	private int start, end, width, height;
+	private int oldPos = -1;
 
 	public Slider(int x, int y, int width, int height, int start, int def, int end) throws SlickException {
 		super(x, y, SpriteManager.sliderBack.getScaledCopy(width, height), SpriteManager.sliderBack.getScaledCopy(width, height), null);
