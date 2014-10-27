@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 /**
  * speichert/laedt alle images
@@ -20,6 +21,8 @@ public abstract class SpriteManager {
 	public static Image pikachu, papierbg, prof;
 	public static Image sliderBack, slider, sliderOver;
 	public static Image[] lightning;
+	
+	public static SpriteSheet spielerSheet;
 
 	public static void load() {
 		try {
@@ -67,6 +70,9 @@ public abstract class SpriteManager {
 
 			// lightning
 			lightning = loadAllImagesFromDir("res/lightning/");
+			
+			//Spieler
+			spielerSheet = new SpriteSheet("res/personen/playersheet.png", 64, 64);
 
 		} catch (SlickException e) {
 			e.printStackTrace();

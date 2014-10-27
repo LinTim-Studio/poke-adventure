@@ -1,26 +1,23 @@
-package pokeAdventure.spieler;
+package pokeAdventure.mob.spieler;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
 
+import pokeAdventure.Main;
 import pokeAdventure.einstellungen.Taste;
 import pokeAdventure.einstellungen.Tastenbelegung;
+import pokeAdventure.mob.MehrfachBild;
+import pokeAdventure.mob.Mob;
 import pokeAdventure.util.SpriteManager;
 
-public class Spieler {
+public class Spieler extends Mob {
 
-	public String name;
-	public Geschlecht geschlecht;
-	public Richtung laufrichtung;
 
-	private Vector2f koordinaten;
-
-	private int dx;
-	private int dy;
+	private String name;
+	private Geschlecht geschlecht;
 
 	/*
 	 * Singleton
@@ -34,8 +31,12 @@ public class Spieler {
 		return spielerDaten;
 	}
 
-	private Spieler() {
-		koordinaten = new Vector2f();
+	public Spieler() {
+		super(new Vector2f(), new MehrfachBild(SpriteManager.spielerSheet, 5));
+	}
+	
+	public void render(GameContainer container, Graphics g, Vector2f offset) {
+		bild.get(laufrchtung).drawCentered(Main.getWidth()/2 + offset.x, Main.getHeight()/2 + offset.y);
 	}
 
 	public String getGeschlechtsBezeichnung() {
@@ -50,52 +51,41 @@ public class Spieler {
 
 	public void update(GameContainer container, int delta, TiledMap map) {
 		updateLaufen(container.getInput(), delta, map);
+		updateLaufrichtung();
 	}
 
 	private void updateLaufen(Input in, int delta, TiledMap map) {
 		dx = dy = 0;
+		
+		float tempSpeed = 0.2f;
 
 		if (Tastenbelegung.isDown(in, Taste.Hoch)) {
-			dy -= delta;
+			dy -= delta * tempSpeed;
 		}
 		if (Tastenbelegung.isDown(in, Taste.Runter))
-			dy += delta;
+			dy += delta * tempSpeed;
 		if (Tastenbelegung.isDown(in, Taste.Links))
-			dx -= delta;
+			dx -= delta * tempSpeed;
 		if (Tastenbelegung.isDown(in, Taste.Rechts))
-			dx += delta;
+			dx += delta * tempSpeed;
+		
+		move(dx, dy);
 
 	}
 
-	public void render(GameContainer container, Graphics g) {
-		// TODO render
-		Image i;
-
-		if ((dy > 0) && (dx == 0)) {
-			i = gibPic(Richtung.norden);
-		} else if ((dy < 0) && (dx == 0)) {
-			i = gibPic(Richtung.sueden);
-		} else if ((dx > 0) && (dy == 0)) {
-			i = gibPic(Richtung.osten);
-		} else if ((dx > 0) && (dy > 0)) {
-			i = gibPic(Richtung.nordosten);
-		} else if ((dx > 0) && (dy < 0)) {
-			i = gibPic(Richtung.suedosten);
-		} else if ((dx < 0) && (dy > 0)) {
-			i = gibPic(Richtung.nordwesten);
-		} else {
-			i = gibPic(Richtung.suedwesten);
-		}
-
-		i.draw();
-
+	public String getName() {
+		return name;
 	}
 
-	public Image gibPic(Richtung a) {
-		return SpriteManager.pikachu;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Vector2f getKoordinaten() {
-		return koordinaten.copy();
+	public Geschlecht getGeschlecht() {
+		return geschlecht;
+	}
+
+	public void setGeschlecht(Geschlecht geschlecht) {
+		this.geschlecht = geschlecht;
 	}
 }

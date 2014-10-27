@@ -16,8 +16,8 @@ import pokeAdventure.Main;
 import pokeAdventure.einstellungen.Taste;
 import pokeAdventure.einstellungen.Tastenbelegung;
 import pokeAdventure.interfaces.Action;
-import pokeAdventure.spieler.Geschlecht;
-import pokeAdventure.spieler.Spieler;
+import pokeAdventure.mob.spieler.Geschlecht;
+import pokeAdventure.mob.spieler.Spieler;
 import pokeAdventure.state.menu.ButtonArray;
 import pokeAdventure.state.menu.MenuButton;
 import pokeAdventure.util.SpriteManager;
@@ -49,7 +49,7 @@ public class GameStart extends BasicGameState {
 			@Override
 			public void action() {
 				fort = text.length;
-				Spieler.getInstance().geschlecht = Geschlecht.maennlich;
+				Spieler.getInstance().setGeschlecht(Geschlecht.maennlich);
 			}
 		});
 
@@ -57,7 +57,7 @@ public class GameStart extends BasicGameState {
 			@Override
 			public void action() {
 				fort = text.length;
-				Spieler.getInstance().geschlecht = Geschlecht.weiblich;
+				Spieler.getInstance().setGeschlecht(Geschlecht.weiblich);
 			}
 		});
 
@@ -65,7 +65,7 @@ public class GameStart extends BasicGameState {
 			@Override
 			public void action() {
 				fort = text.length;
-				Spieler.getInstance().geschlecht = Geschlecht.anders;
+				Spieler.getInstance().setGeschlecht(Geschlecht.anders);
 			}
 		});
 
@@ -100,7 +100,7 @@ public class GameStart extends BasicGameState {
 			write("Du bist also ein " + Spieler.getInstance().getGeschlechtsBezeichnung() + ". Und wie ist dein Name?");
 			textField.render(container, g);
 		} else if (fort == text.length + 1)
-			write("Sch\u00F6n dich kennenzulernen " + Spieler.getInstance().name + ".");
+			write("Sch\u00F6n dich kennenzulernen " + Spieler.getInstance().getName() + ".");
 		else if (fort == text.length + 2)
 			write("Ah, jetzt f\u00e4llt es mir wieder ein. Du bist gerade in meine Heimatstadt Elysion gezogen. Du kannst mich gerne mal besuchen kommen.");
 	}
@@ -116,7 +116,7 @@ public class GameStart extends BasicGameState {
 		} else if (fort == text.length) {
 			textField.setFocus(true);
 			if (Tastenbelegung.isPressed(in, Taste.Enter) && (textField.getText() != null && textField.getText().length() > 0)) {
-				Spieler.getInstance().name = textField.getText();
+				Spieler.getInstance().setName(textField.getText());
 				fort++;
 			}
 		} else if ((fort < text.length - 1) || (fort > text.length)) {

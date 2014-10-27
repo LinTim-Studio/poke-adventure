@@ -10,12 +10,12 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
 import pokeAdventure.Main;
-import pokeAdventure.spieler.Spieler;
+import pokeAdventure.mob.spieler.Spieler;
 
 public class Game extends BasicGameState {
 
 	TiledMap map;
-	Vector2f mapOffset;
+	Vector2f mapOffset, spielerOffset;
 
 	GUI gui;
 	boolean showGUI;
@@ -24,7 +24,8 @@ public class Game extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		map = new TiledMap("res/map/map.tmx");
 		gui = new GUI(container);
-		mapOffset = new Vector2f(0,0);
+		mapOffset = new Vector2f(0, 0);
+		spielerOffset = new Vector2f(0, 0);
 	}
 
 	@Override
@@ -35,10 +36,10 @@ public class Game extends BasicGameState {
 			renderScene(container, game, g);
 		}
 	}
-	
+
 	public void renderScene(GameContainer container, StateBasedGame game, Graphics g) {
 		map.render((int) mapOffset.x, (int) mapOffset.y);
-		Spieler.getInstance().render(container, g);
+		Spieler.getInstance().render(container, g, spielerOffset);
 	}
 
 	@Override
@@ -46,17 +47,31 @@ public class Game extends BasicGameState {
 		if (container.getInput().isKeyPressed(Keyboard.KEY_TAB)) {
 			container.setFullscreen(!container.isFullscreen());
 		}
-		
+
 		if (container.getInput().isKeyPressed(Keyboard.KEY_SPACE)) {
 			showGUI = !showGUI;
 		}
-		
+
 		if (showGUI) {
 			gui.update(container, delta, map);
-		}
-		else {
+		} else {
 			Spieler.getInstance().update(container, delta, map);
-			mapOffset = Spieler.getInstance().getKoordinaten();
+			mapOffset = Spieler.getInstance().getPosition().negateLocal();
+			
+			/**
+			 * Der Spieler wird immer in der Mitte angezeigt, ausser wenn dadurch 
+			 * Elemente ausserhalb der Karte angezeigt werden, dann verschiebt er sich
+			 * 
+			 * Man koennte das natuerlich auch schoener schreiben, aber ich wollte das in zwei Zeilen machen ;)
+			 */
+			spielerOffset.set(
+					(mapOffset.x > 0) ? -mapOffset.x : (mapOffset.x < Main.getWidth() - map.getWidth() * map.getTileWidth() ) ?  Main.getWidth() - map.getWidth() * map.getTileWidth() - mapOffset.x: 0,
+					(mapOffset.y > 0) ? -mapOffset.y : (mapOffset.y < Main.getHeight() - map.getHeight() * map.getTileHeight()) ?  Main.getHeight() - map.getHeight() * map.getTileHeight() - mapOffset.y : 0);
+					
+			mapOffset.set(
+					(mapOffset.x > 0) ? 0 : (mapOffset.x < Main.getWidth() - map.getWidth() * map.getTileWidth() ) ?  Main.getWidth() - map.getWidth() * map.getTileWidth(): mapOffset.x,
+					(mapOffset.y > 0) ? 0 : (mapOffset.y < Main.getHeight() - map.getHeight() * map.getTileHeight()) ?  Main.getHeight() - map.getHeight() * map.getTileHeight() : mapOffset.y);
+			
 		}
 	}
 
