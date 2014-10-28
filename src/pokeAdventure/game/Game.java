@@ -33,7 +33,6 @@ public class Game extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		SpriteManager.update();
 		if (showGUI) {
 			gui.render(container, g);
 		} else {
@@ -60,6 +59,7 @@ public class Game extends BasicGameState {
 		if (showGUI) {
 			gui.update(container, delta, map);
 		} else {
+			SpriteManager.update();
 			entityManager.update(container, delta, map);
 			Spieler.getInstance().update(container, delta, map);
 			
