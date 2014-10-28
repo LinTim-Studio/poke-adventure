@@ -8,6 +8,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import pokeAdventure.mob.MehrfachBild;
+
 /**
  * speichert/laedt alle images
  *
@@ -22,7 +24,7 @@ public abstract class SpriteManager {
 	public static Image sliderBack, slider, sliderOver;
 	public static Image[] lightning;
 	
-	public static SpriteSheet spielerSheet;
+	public static MehrfachBild spieler, person;
 
 	public static void load() {
 		try {
@@ -72,8 +74,11 @@ public abstract class SpriteManager {
 			lightning = loadAllImagesFromDir("res/lightning/");
 			
 			//Spieler
-			spielerSheet = new SpriteSheet("res/personen/playersheet.png", 64, 64);
+			spieler = new MehrfachBild(new SpriteSheet("res/personen/playersheet.png", 64, 64), 2.5f);
 
+			SpriteSheet sheet = new SpriteSheet("res/personen/person.png", 64, 64);
+			person = new MehrfachBild(sheet, 2.5f);
+			
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -100,6 +105,11 @@ public abstract class SpriteManager {
 		}
 
 		return lighningArray.toArray(new Image[] {});
+	}
+
+	public static void update() {
+		spieler.addTime();
+		person.addTime();
 	}
 
 }

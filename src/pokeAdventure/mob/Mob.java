@@ -11,9 +11,13 @@ import static pokeAdventure.mob.Richtung.westen;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.tiled.TiledMap;
 
-public class Mob {
+import pokeAdventure.util.MapUtils;
+
+public abstract class Mob {
 
 	private Vector2f position;
 	protected int dx, dy;
@@ -27,8 +31,16 @@ public class Mob {
 	}
 
 	public void render(GameContainer container, Graphics g, Vector2f offset) {
-		bild.get(laufrchtung).drawCentered(position.x, position.y);
+		bild.get(laufrchtung, (dx != 0 || dy != 0)).drawCentered(position.x + offset.x, position.y + offset.y);
 	}
+	
+	public void update(GameContainer container, int delta, TiledMap map) {
+		updateLaufen(container.getInput(), delta, map);
+		move(dx, dy, map);
+		updateLaufrichtung();
+	}
+	
+	protected abstract void updateLaufen(Input in, int delta, TiledMap map);
 
 	protected void updateLaufrichtung() {
 		if (dx < 0 && dy < 0)
@@ -48,14 +60,42 @@ public class Mob {
 		else if (dx > 0 && dy > 0)
 			laufrchtung = suedosten;
 
-		bild.setMoving(dx != 0 || dy != 0);
-
 	}
 
-	protected void move(int dx, int dy) {
+	protected void move(int dx, int dy, TiledMap map) {
 		// TODO Kollision
+		
+
+		if (MapUtils.getProperty(map, position.x + dx, position.y + 0 , "solid").equals("true")) {
+			dx = 0;
+		}
+		if (MapUtils.getProperty(map, position.x + 0 , position.y + dy, "solid").equals("true")) {
+			dy = 0;
+		}
+		if ((dx != 0 && dy !=0) && MapUtils.getProperty(map, position.x + dx, position.y + dy, "solid").equals("true")) {
+			dx = 0;
+			dy = 0;
+		}
+		
+		int mapWidth = map.getWidth() * map.getTileWidth();
+		int mapHeight = map.getHeight() * map.getTileHeight();
+		
+		if (position.x + dx < 0) {
+			dx = 0;
+		}
+		if (position.x + dx > mapWidth) {
+			dx = 0;
+		}
+		if (position.y + dy < 0) {
+			dy = 0;
+		}
+		if (position.y + dy > mapHeight) {
+			dy = 0;
+		}
+		
 		this.position.x += dx;
 		this.position.y += dy;
+			
 	}
 
 	public Vector2f getPosition() {

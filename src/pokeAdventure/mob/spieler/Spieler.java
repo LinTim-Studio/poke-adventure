@@ -1,15 +1,11 @@
 package pokeAdventure.mob.spieler;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
 
-import pokeAdventure.Main;
 import pokeAdventure.einstellungen.Taste;
 import pokeAdventure.einstellungen.Tastenbelegung;
-import pokeAdventure.mob.MehrfachBild;
 import pokeAdventure.mob.Mob;
 import pokeAdventure.util.SpriteManager;
 
@@ -32,12 +28,12 @@ public class Spieler extends Mob {
 	}
 
 	public Spieler() {
-		super(new Vector2f(), new MehrfachBild(SpriteManager.spielerSheet, 5));
+		super(new Vector2f(100, 100), SpriteManager.spieler);
 	}
 	
-	public void render(GameContainer container, Graphics g, Vector2f offset) {
-		bild.get(laufrchtung).drawCentered(Main.getWidth()/2 + offset.x, Main.getHeight()/2 + offset.y);
-	}
+//	public void render(GameContainer container, Graphics g, Vector2f offset) {
+//		bild.get(laufrchtung).drawCentered(Main.getWidth()/2 + offset.x, Main.getHeight()/2 + offset.y);
+//	}
 
 	public String getGeschlechtsBezeichnung() {
 		if (geschlecht == Geschlecht.maennlich)
@@ -49,12 +45,7 @@ public class Spieler extends Mob {
 		return "Nichts";
 	}
 
-	public void update(GameContainer container, int delta, TiledMap map) {
-		updateLaufen(container.getInput(), delta, map);
-		updateLaufrichtung();
-	}
-
-	private void updateLaufen(Input in, int delta, TiledMap map) {
+	protected void updateLaufen(Input in, int delta, TiledMap map) {
 		dx = dy = 0;
 		
 		float tempSpeed = 0.2f;
@@ -68,9 +59,6 @@ public class Spieler extends Mob {
 			dx -= delta * tempSpeed;
 		if (Tastenbelegung.isDown(in, Taste.Rechts))
 			dx += delta * tempSpeed;
-		
-		move(dx, dy);
-
 	}
 
 	public String getName() {

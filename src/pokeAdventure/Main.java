@@ -1,5 +1,7 @@
 package pokeAdventure;
 
+import java.util.Random;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -46,6 +48,11 @@ public class Main extends StateBasedGame {
 	 * Die fps-Rate des Spiels
 	 */
 	public static final int FPS = 60;
+	
+	/**
+	 * Das Zufallselement
+	 */
+	public static final Random rand = new Random();
 
 	/**
 	 * Die Maße des Standartbildschirms
@@ -92,7 +99,7 @@ public class Main extends StateBasedGame {
 			app.setShowFPS(true);
 		}
 		// Da die Karte alles bedeckt, können wir einfahc übermalen
-		app.setClearEachFrame(true);
+		app.setClearEachFrame(false);
 		// Die gewünschet FPS Rate
 		app.setTargetFrameRate(FPS);
 		// Damit wir nicht zuviel rendern
