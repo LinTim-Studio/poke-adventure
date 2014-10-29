@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.tiled.TiledMapPlus;
 
 import pokeAdventure.mob.person.Person;
 import pokeAdventure.util.SpriteManager;
@@ -16,12 +16,12 @@ public class EntityManager {
 
 	public EntityManager() {
 		personen = new ArrayList<Person>();
-		for (int i = 0; i < 200; i++) {
-			personen.add(new Person(new Vector2f(100, 100), SpriteManager.person));
+		for (int i = 0; i < 10; i++) {
+		personen.add(new Person(new Vector2f(100, 100), SpriteManager.person));
 		}
 	}
 
-	public void update(GameContainer container, int delta, TiledMap map) {
+	public void update(GameContainer container, int delta, TiledMapPlus map) {
 		for (Person person : personen) {
 			person.update(container, delta, map);
 		}

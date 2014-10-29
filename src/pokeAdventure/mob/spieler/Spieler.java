@@ -2,7 +2,7 @@ package pokeAdventure.mob.spieler;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.tiled.TiledMapPlus;
 
 import pokeAdventure.einstellungen.Taste;
 import pokeAdventure.einstellungen.Tastenbelegung;
@@ -45,7 +45,7 @@ public class Spieler extends Mob {
 		return "Nichts";
 	}
 
-	protected void updateLaufen(Input in, int delta, TiledMap map) {
+	protected void updateLaufen(Input in, int delta, TiledMapPlus map) {
 		dx = dy = 0;
 		
 		float tempSpeed = 0.2f;

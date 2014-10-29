@@ -14,13 +14,15 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.tiled.TiledMapPlus;
+import org.newdawn.slick.util.pathfinding.Mover;
 
 import pokeAdventure.util.MapUtils;
 
-public abstract class Mob {
+public abstract class Mob implements Mover {
 
-	private Vector2f position;
-	protected int dx, dy;
+	protected Vector2f position;
+	protected float dx, dy;
 	protected Richtung laufrchtung;
 	protected MehrfachBild bild;
 
@@ -34,13 +36,13 @@ public abstract class Mob {
 		bild.get(laufrchtung, (dx != 0 || dy != 0)).drawCentered(position.x + offset.x, position.y + offset.y);
 	}
 	
-	public void update(GameContainer container, int delta, TiledMap map) {
+	public void update(GameContainer container, int delta, TiledMapPlus map) {
 		updateLaufen(container.getInput(), delta, map);
 		move(dx, dy, map);
 		updateLaufrichtung();
 	}
 	
-	protected abstract void updateLaufen(Input in, int delta, TiledMap map);
+	protected abstract void updateLaufen(Input in, int delta, TiledMapPlus map);
 
 	protected void updateLaufrichtung() {
 		if (dx < 0 && dy < 0)
@@ -62,17 +64,17 @@ public abstract class Mob {
 
 	}
 
-	protected void move(int dx, int dy, TiledMap map) {
+	protected void move(float dx, float dy, TiledMap map) {
 		// TODO Kollision
 		
 
-		if (MapUtils.getProperty(map, position.x + dx, position.y + 0 , "solid").equals("true")) {
+		if (MapUtils.getProperty(map, MapUtils.getTileX(position.x + dx, map), MapUtils.getTileY(position.y + 0, map) , "solid").equals("true")) {
 			dx = 0;
 		}
-		if (MapUtils.getProperty(map, position.x + 0 , position.y + dy, "solid").equals("true")) {
+		if (MapUtils.getProperty(map, MapUtils.getTileX(position.x + 0, map) , MapUtils.getTileY(position.y + dy, map), "solid").equals("true")) {
 			dy = 0;
 		}
-		if ((dx != 0 && dy !=0) && MapUtils.getProperty(map, position.x + dx, position.y + dy, "solid").equals("true")) {
+		if ((dx != 0 && dy !=0) && MapUtils.getProperty(map, MapUtils.getTileX(position.x + dx, map), MapUtils.getTileY(position.y + dy, map), "solid").equals("true")) {
 			dx = 0;
 			dy = 0;
 		}

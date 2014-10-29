@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.tiled.TiledMapPlus;
 
 import pokeAdventure.Main;
 import pokeAdventure.game.entities.EntityManager;
@@ -16,7 +16,7 @@ import pokeAdventure.util.SpriteManager;
 
 public class Game extends BasicGameState {
 
-	TiledMap map;
+	TiledMapPlus map;
 	EntityManager entityManager;
 	Vector2f mapOffset;
 
@@ -25,7 +25,7 @@ public class Game extends BasicGameState {
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		map = new TiledMap("res/map/map.tmx");
+		map = new TiledMapPlus("res/map/map.tmx");
 		gui = new GUI(container);
 		mapOffset = new Vector2f(0, 0);
 		entityManager = new EntityManager();
