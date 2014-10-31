@@ -4,20 +4,26 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
 import pokeAdventure.Main;
+import pokeAdventure.util.Box;
 
 public class MehrfachBild {
 
 	/**
-	 * 
-	 * 
-	 * 
+	 * n, no, o, so, s, sw, w, nw
 	 */
 	private SpriteSheet sheet;
 	private float current, framerate;
+	
+	/**
+	 * padding
+	 * oben, rechts, unten, links
+	 */
+	private Box box;
 
-	public MehrfachBild(SpriteSheet sheet, float framerate) {
+	public MehrfachBild(SpriteSheet sheet, float framerate, Box box) {
 		this.sheet = sheet;
 		this.framerate = framerate;
+		this.box = box;
 	}
 
 	public Image get(Richtung r, boolean moving) {
@@ -54,6 +60,10 @@ public class MehrfachBild {
 	
 	public void addTime() {
 		current += 1 / (float) (Main.FPS / framerate);
+	}
+	
+	public Box getBox() {
+		return box;
 	}
 
 }

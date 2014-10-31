@@ -7,16 +7,16 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.tiled.TiledMapPlus;
 
 import pokeAdventure.Main;
 import pokeAdventure.game.entities.EntityManager;
 import pokeAdventure.mob.spieler.Spieler;
+import pokeAdventure.util.Karte;
 import pokeAdventure.util.SpriteManager;
 
 public class Game extends BasicGameState {
 
-	TiledMapPlus map;
+	Karte map;
 	EntityManager entityManager;
 	Vector2f mapOffset;
 
@@ -25,7 +25,7 @@ public class Game extends BasicGameState {
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		map = new TiledMapPlus("res/map/map.tmx");
+		map = new Karte("res/map/map.tmx");
 		gui = new GUI(container);
 		mapOffset = new Vector2f(0, 0);
 		entityManager = new EntityManager();
@@ -62,18 +62,18 @@ public class Game extends BasicGameState {
 			SpriteManager.update();
 			entityManager.update(container, delta, map);
 			Spieler.getInstance().update(container, delta, map);
-			
+
 			/**
-			 * Der Spieler wird immer in der Mitte angezeigt, ausser wenn dadurch 
-			 * Elemente ausserhalb der Karte angezeigt werden, dann verschiebt er sich
+			 * Der Spieler wird immer in der Mitte angezeigt, ausser wenn
+			 * dadurch Elemente ausserhalb der Karte angezeigt werden, dann
+			 * verschiebt er sich
 			 * 
-			 * Man koennte das natuerlich auch schoener schreiben, aber ich wollte das in zwei Zeilen machen ;)
+			 * Man koennte das natuerlich auch schoener schreiben, aber ich
+			 * wollte das in zwei Zeilen machen ;)
 			 */
-			mapOffset = Spieler.getInstance().getPosition().negateLocal().add(new Vector2f(Main.getWidth()/2, Main.getHeight()/2));
-			mapOffset.set(
-					(mapOffset.x > 0) ? 0 : (mapOffset.x < Main.getWidth() - map.getWidth() * map.getTileWidth() ) ?  Main.getWidth() - map.getWidth() * map.getTileWidth(): mapOffset.x,
-					(mapOffset.y > 0) ? 0 : (mapOffset.y < Main.getHeight() - map.getHeight() * map.getTileHeight()) ?  Main.getHeight() - map.getHeight() * map.getTileHeight() : mapOffset.y);
-			
+			mapOffset = Spieler.getInstance().getPosition().negateLocal().add(new Vector2f(Main.getWidth() / 2, Main.getHeight() / 2));
+			mapOffset.set((mapOffset.x > 0) ? 0 : (mapOffset.x < Main.getWidth() - map.getWidth() * map.getTileWidth()) ? Main.getWidth() - map.getWidth() * map.getTileWidth() : mapOffset.x, (mapOffset.y > 0) ? 0 : (mapOffset.y < Main.getHeight() - map.getHeight() * map.getTileHeight()) ? Main.getHeight() - map.getHeight() * map.getTileHeight() : mapOffset.y);
+
 		}
 	}
 

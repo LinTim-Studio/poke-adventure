@@ -1,12 +1,15 @@
 package pokeAdventure.mob.spieler;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.tiled.TiledMapPlus;
 
 import pokeAdventure.einstellungen.Taste;
 import pokeAdventure.einstellungen.Tastenbelegung;
 import pokeAdventure.mob.Mob;
+import pokeAdventure.util.Karte;
 import pokeAdventure.util.SpriteManager;
 
 public class Spieler extends Mob {
@@ -45,7 +48,7 @@ public class Spieler extends Mob {
 		return "Nichts";
 	}
 
-	protected void updateLaufen(Input in, int delta, TiledMapPlus map) {
+	protected void updateLaufen(Input in, int delta, Karte map) {
 		dx = dy = 0;
 		
 		float tempSpeed = 0.2f;
@@ -75,5 +78,14 @@ public class Spieler extends Mob {
 
 	public void setGeschlecht(Geschlecht geschlecht) {
 		this.geschlecht = geschlecht;
+	}
+	
+	@Override
+	public void render(GameContainer container, Graphics g, Vector2f offset) {
+		super.render(container, g, offset);
+		g.setColor(Color.blue);
+		g.drawRect(position.x + offset.x - bild.getBox().links,
+				position.y + offset.y - bild.getBox().oben,
+				getWidth(), getHeight());
 	}
 }

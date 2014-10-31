@@ -74,10 +74,11 @@ public abstract class SpriteManager {
 			lightning = loadAllImagesFromDir("res/lightning/");
 			
 			//Spieler
-			spieler = new MehrfachBild(new SpriteSheet("res/personen/playersheet.png", 64, 64), 2.5f);
-
-			SpriteSheet sheet = new SpriteSheet("res/personen/person.png", 64, 64);
-			person = new MehrfachBild(sheet, 2.5f);
+//			spieler = new MehrfachBild(new SpriteSheet("res/personen/playersheet.png", 64, 64), 2.5f, new Box(-5, 10, 32, 10));
+			spieler = new MehrfachBild(new SpriteSheet("res/personen/person.png", 32, 32), 2.5f, new Box(	15, 15, 15, 15));
+			
+			
+			person = new MehrfachBild(new SpriteSheet("res/personen/person.png", 32, 32), 2.5f, new Box(	15, 15, 15, 15));
 			
 		} catch (SlickException e) {
 			e.printStackTrace();

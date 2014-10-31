@@ -4,14 +4,12 @@ import static pokeAdventure.Main.rand;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.tiled.TiledMapPlus;
 import org.newdawn.slick.util.pathfinding.AStarPathFinder;
 import org.newdawn.slick.util.pathfinding.Path;
 
 import pokeAdventure.mob.MehrfachBild;
 import pokeAdventure.mob.Mob;
-import pokeAdventure.util.MapUtils;
-import pokeAdventure.util.TileMap;
+import pokeAdventure.util.Karte;
 
 public class Person extends Mob {
 
@@ -23,8 +21,7 @@ public class Person extends Mob {
 	}
 
 	@Override
-	protected void updateLaufen(Input in, int delta, TiledMapPlus map) {
-
+	protected void updateLaufen(Input in, int delta, Karte map) {
 
 		if (path != null) {
 			if (path.getLength() == (int) index) {
@@ -38,23 +35,10 @@ public class Person extends Mob {
 				index += a;
 			}
 		} else {
-			AStarPathFinder pathfinder = new AStarPathFinder(new TileMap(map), map.getHeight() * map.getWidth(), true);
-			path = pathfinder.findPath(this, MapUtils.getTileX(position.x, map), MapUtils.getTileY(position.y, map), (int) (rand.nextFloat() * map.getWidth()), (int) (rand.nextFloat() * map.getHeight()));
+			AStarPathFinder pathfinder = new AStarPathFinder(map, map.getHeight() * map.getWidth(), false);
+			path = pathfinder.findPath(this, map.getTileX(position.x), map.getTileY(position.y), rand.nextInt(map.getWidth()), rand.nextInt(map.getHeight()));
 			index = 0;
 		}
-		
-		
-		// if ((dx == 0 && dy == 0) || rand.nextInt(200) == 0) {
-		// if (rand.nextBoolean()) {
-		// dx = rand.nextInt(2) * 2 - 1;
-		// dy = 0;
-		// } else {
-		// dx = 0;
-		// dy = rand.nextInt(2) * 2 - 1;
-		// }
-		// dx *= delta * 0.15;
-		// dy *= delta * 0.15;
-		// }
 
 	}
 }
