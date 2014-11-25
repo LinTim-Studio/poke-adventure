@@ -21,6 +21,7 @@ public abstract class SpriteManager {
 	public static Image btnSpeichern, btnSpeichernOver;
 	public static Image geschlechtJunge, geschlechtJungeOver, geschlechtMaedchen, geschlechtMaedchenOver, geschlechtAnders, geschlechtAndersOver;
 	public static Image pikachu, papierbg, prof;
+	public static Image wolken;
 	public static Image sliderBack, slider, sliderOver;
 	public static Image[] lightning;
 	
@@ -73,6 +74,9 @@ public abstract class SpriteManager {
 			// lightning
 			lightning = loadAllImagesFromDir("res/lightning/");
 			
+			// Game
+			wolken = new Image("res/game/wolken.png");
+			
 			//Spieler
 //			spieler = new MehrfachBild(new SpriteSheet("res/personen/playersheet.png", 64, 64), 2.5f, new Box(-5, 10, 32, 10));
 			spieler = new MehrfachBild(new SpriteSheet("res/personen/person.png", 32, 32), 2.5f, new Box(	15, 15, 15, 15));
@@ -81,7 +85,9 @@ public abstract class SpriteManager {
 			person = new MehrfachBild(new SpriteSheet("res/personen/person.png", 32, 32), 2.5f, new Box(	15, 15, 15, 15));
 			
 		} catch (SlickException e) {
+			System.err.println("Failed to load images!");
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 

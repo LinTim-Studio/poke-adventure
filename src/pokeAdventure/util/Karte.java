@@ -11,9 +11,13 @@ import pokeAdventure.mob.Mob;
 public class Karte extends TiledMapPlus implements TileBasedMap {
 
 	private static int defaultLayer = 0;
+	private float wolke1, wolke2, wolkenSpeed = 0.2f;
+	
 
 	public Karte(String ref) throws SlickException {
 		super(ref);
+		wolke1 = 0;
+		wolke2 = - SpriteManager.wolken.getWidth();
 	}
 
 	@Override
@@ -25,6 +29,15 @@ public class Karte extends TiledMapPlus implements TileBasedMap {
 	public int getHeightInTiles() {
 		return getHeight();
 	}
+	
+	public int getTotalWidth() {
+		return getWidth() * getTileWidth();
+	}
+	
+	public int getTotalHeight() {
+		return getHeight() * getTileHeight();
+	}
+	
 
 	@Override
 	public void pathFinderVisited(int x, int y) {
@@ -91,6 +104,22 @@ public class Karte extends TiledMapPlus implements TileBasedMap {
 
 	private boolean isSolid(int xT, int yT) {
 		return getProperty(xT, yT, "solid").equals("true");
+	}
+	
+	@Override
+	public void render(int x, int y) {
+		// Wolken:
+		wolke1+=wolkenSpeed;
+		wolke2+=wolkenSpeed;
+		SpriteManager.wolken.draw((x + wolke1), y);
+		SpriteManager.wolken.draw((x + wolke2 + 1), y); // +1 für Überlappen
+		if (wolke1 > getTotalWidth()) {
+			wolke1 = wolke2 - SpriteManager.wolken.getWidth();
+		}
+		if (wolke2 > getTotalWidth()) {
+			wolke2 = wolke1 - SpriteManager.wolken.getWidth();
+		}
+		super.render(x, y);
 	}
 
 }
