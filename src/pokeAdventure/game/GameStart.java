@@ -107,6 +107,7 @@ public class GameStart extends BasicGameState {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+		Main.hauptTasten(container);
 		Input in = container.getInput();
 		// isMousePresssed darf nur einmal aufgerufen werden
 		boolean mousePressed = in.isMousePressed(0);

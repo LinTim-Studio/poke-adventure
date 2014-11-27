@@ -13,6 +13,7 @@ import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.StateBasedGame;
 
 import pokeAdventure.einstellungen.Einstellungen;
+import pokeAdventure.einstellungen.Taste;
 import pokeAdventure.einstellungen.Tastenbelegung;
 import pokeAdventure.game.Game;
 import pokeAdventure.game.GameStart;
@@ -180,6 +181,16 @@ public class Main extends StateBasedGame {
 
 	public static StateBasedGame getMainGame() {
 		return mainGame;
+	}
+
+	/**
+	 * Kann von allen Zuständen aus aufgerufen werden, die Tasten betreffen alle
+	 * @param container
+	 */
+	public static void hauptTasten(GameContainer container) throws SlickException {
+		if (Tastenbelegung.isPressed(container.getInput(), Taste.Vollbild)) {
+			container.setFullscreen(!container.isFullscreen());
+		}		
 	}
 
 }

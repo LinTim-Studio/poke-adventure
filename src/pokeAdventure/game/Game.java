@@ -53,9 +53,7 @@ public class Game extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		mausVerstecken(container);
 		
-		if (container.getInput().isKeyPressed(Keyboard.KEY_TAB)) {
-			container.setFullscreen(!container.isFullscreen());
-		}
+		Main.hauptTasten(container);
 
 		if (container.getInput().isKeyPressed(Keyboard.KEY_SPACE)) {
 			showGUI = !showGUI;
