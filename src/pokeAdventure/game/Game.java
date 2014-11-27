@@ -16,9 +16,12 @@ import pokeAdventure.util.SpriteManager;
 
 public class Game extends BasicGameState {
 
+	static int maxMouseTimer = 300;
+	
 	Karte map;
 	EntityManager entityManager;
-	Vector2f mapOffset;
+	Vector2f mapOffset, oldMouse;
+	int mouseTimer = 0;
 
 	GUI gui;
 	boolean showGUI;
@@ -48,6 +51,8 @@ public class Game extends BasicGameState {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+		mausVerstecken(container);
+		
 		if (container.getInput().isKeyPressed(Keyboard.KEY_TAB)) {
 			container.setFullscreen(!container.isFullscreen());
 		}
@@ -75,6 +80,24 @@ public class Game extends BasicGameState {
 			mapOffset.set((mapOffset.x > 0) ? 0 : (mapOffset.x < Main.getWidth() - map.getWidth() * map.getTileWidth()) ? Main.getWidth() - map.getWidth() * map.getTileWidth() : mapOffset.x, (mapOffset.y > 0) ? 0 : (mapOffset.y < Main.getHeight() - map.getHeight() * map.getTileHeight()) ? Main.getHeight() - map.getHeight() * map.getTileHeight() : mapOffset.y);
 
 		}
+	}
+
+	private void mausVerstecken(GameContainer container) {
+		//Wenn die Maus lange nicht bewegt wird, soll sie verschwinden, aber nur wenn wir im Vordergrund sind
+		if (!container.hasFocus())
+			return;
+		Vector2f mouse = new Vector2f(container.getInput().getMouseX(), container.getInput().getMouseY());
+		boolean bewegt = !mouse.equals(oldMouse);
+		if (!bewegt && !container.isMouseGrabbed()) {
+			mouseTimer++;
+			if (mouseTimer == maxMouseTimer) {
+				container.setMouseGrabbed(true);
+			}
+		} else if (bewegt && mouseTimer != 0 && container.isMouseGrabbed()) {
+			mouseTimer = 0;
+			container.setMouseGrabbed(false);
+		}
+		oldMouse = mouse;
 	}
 
 	@Override
