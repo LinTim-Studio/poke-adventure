@@ -11,6 +11,7 @@ import pokeAdventure.einstellungen.Tastenbelegung;
 import pokeAdventure.mob.Mob;
 import pokeAdventure.util.Karte;
 import pokeAdventure.util.SpriteManager;
+import pokeAdventure.util.Vector2i;
 
 public class Spieler extends Mob {
 
@@ -87,5 +88,10 @@ public class Spieler extends Mob {
 		g.drawRect(position.x + offset.x - bild.getBox().links,
 				position.y + offset.y - bild.getBox().oben,
 				getWidth(), getHeight());
+		
+	}
+
+	public void teleport(Vector2i pos) {
+		this.position.set(pos.x, pos.y);
 	}
 }

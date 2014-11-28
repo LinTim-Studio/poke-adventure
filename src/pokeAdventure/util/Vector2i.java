@@ -213,7 +213,7 @@ public class Vector2i implements Serializable {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return "[Vector2i "+x+","+y+" ("+length()+")]";
+		return "["+x+","+y+"]";
 	}
 	
 	/**

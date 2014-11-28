@@ -9,7 +9,6 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import pokeAdventure.Main;
-import pokeAdventure.game.entities.EntityManager;
 import pokeAdventure.mob.spieler.Spieler;
 import pokeAdventure.util.Karte;
 import pokeAdventure.util.SpriteManager;
@@ -18,8 +17,7 @@ public class Game extends BasicGameState {
 
 	static int maxMouseTimer = 300;
 	
-	Karte map;
-	EntityManager entityManager;
+	KartenManager kartenManager;
 	Vector2f mapOffset, oldMouse;
 	int mouseTimer = 0;
 
@@ -28,10 +26,9 @@ public class Game extends BasicGameState {
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		map = new Karte("res/map/map.tmx");
+		kartenManager = new KartenManager();
 		gui = new GUI(container);
 		mapOffset = new Vector2f(0, 0);
-		entityManager = new EntityManager();
 	}
 
 	@Override
@@ -44,13 +41,13 @@ public class Game extends BasicGameState {
 	}
 
 	public void renderScene(GameContainer container, StateBasedGame game, Graphics g) {
-		map.render((int) mapOffset.x, (int) mapOffset.y);
-		entityManager.render(container, g, mapOffset);
+		kartenManager.getKarte().render(container, g, mapOffset);
 		Spieler.getInstance().render(container, g, mapOffset);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+		
 		mausVerstecken(container);
 		
 		Main.hauptTasten(container);
@@ -59,12 +56,14 @@ public class Game extends BasicGameState {
 			showGUI = !showGUI;
 		}
 
+		Karte map = kartenManager.getKarte();
+
 		if (showGUI) {
 			gui.update(container, delta, map);
 		} else {
 			SpriteManager.update();
-			entityManager.update(container, delta, map);
 			Spieler.getInstance().update(container, delta, map);
+			kartenManager.update(container, delta);
 
 			/**
 			 * Der Spieler wird immer in der Mitte angezeigt, ausser wenn

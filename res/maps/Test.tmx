@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="spritesheet" tilewidth="32" tileheight="32">
+  <image source="spritesheet.png" width="512" height="512"/>
+  <tile id="3">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Kachelebene 1" width="32" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA82X3WrDMAyF5ZDQ3doEdl3I+z/jVtAhX7Q4dpqMrSDiH9nHsuQj9WFmj38kz9AvLnH8SIaT+sJNvjZ5v6CdvN/aJwG/Rz/iv9ZM3s++14D2kV1pR7TuCDvDzgF94aldfI5jtDVjXuPSbdmuPaQ/f8v4LYt/Z7QX72tswdyIOZ73CF96srH4+o8LMsOfuRNf/ipux1X8uGev/yP+5wnRmsXW+JhsjZca/tP1iutF/J5fxNe9yqdH74axN9jW/+/gz7ZyScv/e+/pqv3yv3ikhZ8h6SZ8cUmLB/n+FH9X71/+VzzVsMkz5JA77Cef1s4wHcgd/lds1zj4N/GZN8Qve/dPPid/3xF/8j/5Pd6Fcg91r/p/tG38E79WM1D3DnzaxPxce3/i39d5lov4in/tp/338Gm/zhrxz+Yf+Z91Va1+yvYzToj/joy28mqxLcfu3T9rjzvy/2LrmxMP1eKPd8D8K05knTXatgYbgw5rthywpwr2Xg2sc7OGYZ6kbg5fxlO2vhzEMwzAY23EGrVAd8KYcj65T/b34CseprAPa7P4XlJoF+hJerGFT3vIHa0aTn7hec9gS8iHvXvRZz11d08ctGrH2tqz/z//Sr4AQX6jEwAQAAA=
+  </data>
+ </layer>
+ <objectgroup name="Wege" width="32" height="32">
+  <object name="0" type="Wegpunkt" x="0" y="478" width="31" height="64"/>
+  <object name="0" type="Ankunft" x="49" y="503" width="26" height="22"/>
+ </objectgroup>
+</map>
