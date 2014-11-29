@@ -28,7 +28,7 @@ public class MenuLaden extends BasicGameState {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		Main.hauptTasten(container);
+		Main.allgemeinesUpdate(container, delta);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.ScalableGame;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -56,13 +57,27 @@ public class Main extends StateBasedGame {
 	public static final Random rand = new Random();
 
 	/**
-	 * Die Maße des Standartbildschirms
+	 * Die Maße des Standardbildschirms (16 : 9)
 	 */
-	private static final int defWIDTH = 800, defHEIGHT = defWIDTH / 16 * 9; // 16
-																			// :
-																			// 9
+	private static final int defWIDTH = 800, defHEIGHT = defWIDTH / 16 * 9;
 
+	/**
+	 * Maus verschwindet nach gegebener Zeit (in ms)
+	 */
+	private static int maxMouseTimer = 4000, mouseTimer;
+	/**
+	 * Die alte Position der Maus um eine Bewegung festzustellen
+	 */
+	private static Vector2f oldMouse;
+
+	/**
+	 * Startpunkt der App
+	 */
 	private static Main mainGame;
+
+	/**
+	 * Zustand, in welchem das eigentliche Spiel läuft
+	 */
 	private static Game gameState;
 
 	/**
@@ -101,7 +116,7 @@ public class Main extends StateBasedGame {
 		}
 		// Da die Karte alles bedeckt, können wir einfahc übermalen
 		app.setClearEachFrame(false);
-		// Die gewünschet FPS Rate
+		// Die gewünschte FPS Rate
 		app.setTargetFrameRate(FPS);
 		// Damit wir nicht zuviel rendern
 		app.setVSync(true);
@@ -155,8 +170,7 @@ public class Main extends StateBasedGame {
 		
 		gameState = new Game();
 		this.addState(gameState);
-
-
+		
 		this.enterState(ladebildschirmID);
 	}
 
@@ -184,13 +198,34 @@ public class Main extends StateBasedGame {
 	}
 
 	/**
-	 * Kann von allen Zuständen aus aufgerufen werden, die Tasten betreffen alle
-	 * @param container
+	 * Kann von allen Zuständen aus aufgerufen werden, die Updates (z.B Tasten)
+	 * betreffen alle
 	 */
-	public static void hauptTasten(GameContainer container) throws SlickException {
+	public static void allgemeinesUpdate(GameContainer container, int delta) throws SlickException {
 		if (Tastenbelegung.isPressed(container.getInput(), Taste.Vollbild)) {
 			container.setFullscreen(!container.isFullscreen());
-		}		
+		}
+		mausVerstecken(container, delta);
+	}
+
+	private static void mausVerstecken(GameContainer container, int delta) {
+		// Wenn die Maus lange nicht bewegt wird, soll sie verschwinden, aber
+		// nur wenn wir im Vordergrund sind
+		if (!container.hasFocus())
+			return;
+
+		Vector2f mouse = new Vector2f(container.getInput().getMouseX(), container.getInput().getMouseY());
+		boolean bewegt = !mouse.equals(oldMouse);
+		if (!bewegt && !container.isMouseGrabbed()) {
+			mouseTimer += delta;
+			if (mouseTimer >= maxMouseTimer) {
+				container.setMouseGrabbed(true);
+			}
+		} else if (bewegt && mouseTimer != 0 && container.isMouseGrabbed()) {
+			mouseTimer = 0;
+			container.setMouseGrabbed(false);
+		}
+		oldMouse = mouse;
 	}
 
 }

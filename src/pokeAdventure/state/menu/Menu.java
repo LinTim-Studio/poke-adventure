@@ -98,7 +98,7 @@ public class Menu extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input in = container.getInput();
-		Main.hauptTasten(container);
+		Main.allgemeinesUpdate(container, delta);
 		btns.update(in);
 	}
 
