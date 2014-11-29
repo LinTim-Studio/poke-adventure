@@ -33,4 +33,8 @@ public class EntityManager {
 		}
 	}
 
+	public ArrayList<Person> getPersonen() {
+		return personen;
+	}
+
 }

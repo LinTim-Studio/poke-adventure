@@ -12,6 +12,7 @@ import org.newdawn.slick.tiled.TiledMapPlus;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
+import pokeAdventure.Main;
 import pokeAdventure.game.KartenManager;
 import pokeAdventure.game.entities.EntityManager;
 import pokeAdventure.mob.Mob;
@@ -21,13 +22,20 @@ import pokeAdventure.util.error.Fehlermelder;
 public class Karte extends TiledMapPlus implements TileBasedMap {
 
 	private static int defaultLayer = 0;
-	private float wolke1, wolke2, wolkenSpeed = 0.2f;
+	private Vector2f[][] wolkenPositionen;
+	private Vector2f wolkenSpeed = new Vector2f(0.07f, 0.0f);
 	private EntityManager entityManager;
 
 	public Karte(String ref) throws SlickException {
 		super(ref);
-		wolke1 = 0;
-		wolke2 = -SpriteManager.wolken.getWidth();
+		int wolkenHorizontal = 2 + (int) Math.floor(getTotalWidth() / (float) SpriteManager.wolken.getWidth());
+		int wolkenVertikal = 2 + (int) Math.floor(getTotalHeight() / (float) SpriteManager.wolken.getHeight());
+		wolkenPositionen = new Vector2f[wolkenHorizontal][wolkenVertikal];
+		for (int x = 0; x < wolkenPositionen.length; x++) {
+			for (int y = 0; y < wolkenPositionen[x].length; y++) {
+				wolkenPositionen[x][y] = new Vector2f(x * SpriteManager.wolken.getWidth(), y * SpriteManager.wolken.getHeight());
+			}
+		}
 		entityManager = new EntityManager();
 	}
 
@@ -152,21 +160,20 @@ public class Karte extends TiledMapPlus implements TileBasedMap {
 	private boolean isSolid(int xT, int yT) {
 		return getProperty(xT, yT, "solid").equals("true");
 	}
-	
+
 	public void render(GameContainer container, Graphics g, Vector2f offset) {
 		// Wolken:
-		wolke1 += wolkenSpeed;
-		wolke2 += wolkenSpeed;
-		SpriteManager.wolken.draw((offset.x + wolke1), offset.y);
-		SpriteManager.wolken.draw((offset.x + wolke2 + 1), offset.y); // +1 für Überlappen
-		if (wolke1 > getTotalWidth()) {
-			wolke1 = wolke2 - SpriteManager.wolken.getWidth();
+		// Schneller fix 
+		//TODO anständig die Lücken verbergen
+		g.drawImage(SpriteManager.wolken, offset.x, offset.y);
+		for (int x = 0; x < wolkenPositionen.length; x++) {
+			for (int y = 0; y < wolkenPositionen[x].length; y++) {
+				g.drawImage(SpriteManager.wolken, wolkenPositionen[x][y].x + offset.x, wolkenPositionen[x][y].y + offset.y);
+			}
 		}
-		if (wolke2 > getTotalWidth()) {
-			wolke2 = wolke1 - SpriteManager.wolken.getWidth();
-		}
+
 		super.render((int) offset.x, (int) offset.y);
-		
+
 		// Entities
 		entityManager.render(container, g, offset);
 	}
@@ -174,8 +181,26 @@ public class Karte extends TiledMapPlus implements TileBasedMap {
 	public void update(KartenManager kartenManager, GameContainer container, int delta) {
 		updateWegpunkte(Spieler.getInstance(), kartenManager);
 		entityManager.update(container, delta, this);
+		updateWolken(delta);
 	}
-	
+
+	private void updateWolken(int delta) {
+		for (int x = 0; x < wolkenPositionen.length; x++) {
+			for (int y = 0; y < wolkenPositionen[x].length; y++) {
+				wolkenPositionen[x][y].x += wolkenSpeed.x * delta;
+				wolkenPositionen[x][y].y += wolkenSpeed.y * delta;
+
+				if (wolkenPositionen[x][y].x > Main.getWidth()) {
+					wolkenPositionen[x][y].x = wolkenPositionen[(x + 1) % wolkenPositionen.length][y].x - SpriteManager.wolken.getWidth() + wolkenSpeed.x * delta;
+				}
+
+				if (wolkenPositionen[x][y].y > Main.getHeight()) {
+					wolkenPositionen[x][y].y = wolkenPositionen[x][(y + 1) % wolkenPositionen[x].length].y - SpriteManager.wolken.getHeight() + wolkenSpeed.y * delta;
+				}
+			}
+		}
+	}
+
 	private void updateWegpunkte(Spieler spieler, KartenManager kartenManager) {
 		GroupObject obj = getObject(spieler, "Wege", "Wegpunkt");
 		if (obj != null) {
@@ -183,7 +208,7 @@ public class Karte extends TiledMapPlus implements TileBasedMap {
 				int geheNach = Integer.parseInt(obj.name);
 				kartenManager.wechselKarte(geheNach);
 			} catch (NumberFormatException e) {
-				Fehlermelder.melde(e, "Falsche Objectname!");
+				Fehlermelder.melde(e, "Falscher Objektname!");
 			}
 		}
 	}
@@ -196,7 +221,7 @@ public class Karte extends TiledMapPlus implements TileBasedMap {
 				}
 			}
 		} catch (NullPointerException e) {
-			// nicht gefunden ... 
+			// nicht gefunden ...
 			System.err.println("Keine Verbindung!");
 		}
 		return null;
