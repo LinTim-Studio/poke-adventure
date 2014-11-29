@@ -30,11 +30,13 @@
  </tileset>
  <layer name="Kachelebene 1" width="32" height="32">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA8WXS44DIQxEwepR1qBcAKnvf8bJSJT0umJIz2ZmYdHh47LLH8ijlPL4Z2kviZf0+T2S9TFHn9fZ+IAxNnuELYw65+v83adQV5/rw9Z0XmdHsifzX2fkS8d8wHd9c452UYfsk56OccX/wB79/pFjivaFnQvspS/kuEKn28Dz+lZ8K/ArZNi3bOFeYjBeWS4M00PuFc8oV464plH4WcxXMcjiwZjQbsa/l2u8NZ/VEesgW1vlY4c434oT7fQ6kt8NOrIaZJ7Sv16ucWHtjXLNBeZwxnvGvfwUhsdfmLSH69wXCwzxuuPb8d3/Vq410Ww+yjVP7/bfw2TYb+faeRBuNfwT8pxyzPEseW4IT/y6bXeEdnitCOvL8I8EL+bIus9yj7mrc1Hea5H1SvwG3YxxB/5hfErEJ+2vpifLI+LvYk99R9nnUGA/73KPR038b4bP8w26V/hP45/YXhuOX6E/TAd5OTf4p/lQLUasgbO8538va/5ZCzv8iv3ZHbvr98Tn/cO+5L7w+4QO79G/7T+fapvvDcci/3fehbp72IP8DhDOKj5ZvCjsFRl+lqe0gz1F+H4P8w4jJ+x5q5zwOzvDd+Fd7rXGNdroNpH/AT3eK9kbiTGwxreS92hyx35E/7M3AePBuvB7RXozf/zdTK68/3x6j3mcV/XF+4f4kWB/qgt/K5LDVX9hn6Wdq3e35yLjmP3nY45k57N35N1exHed+Pa4ZnbxPPMzbLzD+1/KN0nJMc0AEAAA
+   H4sIAAAAAAAAA8WXTW4DIQyFwZooa1AugDT3P2NbiSd982LIdNMurCFg/PyP8yylPP+Z2jfFN/W5Hsn5mF/f1934gDE2PMIWRp37df7ukyirz/NhZ7qvuyPhyezXHdnSsR+wXWvuUS/KkH6S0/Fd+X+AR79/6JgkvrB7AV7aQh9XyHQdeF9rxbcCv4KGraULeYnBeEm31+Q95/oFOfS94hnl6iOe6Sv8LOYeg4fhjHLNacbA/d6wFyYnqyPWwQD+Kl8kr4Pc3+Knnl5HsrtBhvYP+J1+o329XOPL2hvlmgvM4czvWf7LTmF4/IVJfXhOvlhgqM529e/4bn8r15poth/lmqd3++9hNOy3+9r9INxq+CeIMX7NvSw3hCf/um53iHp4rQjrYfhHghfzy7rPco89QveivNci65X4DbIZ4w589Sgn+ZP6V5OT5RHxd7GnvKPscyjAz7fc41ET+5vh836D7BX+y/xPbK8Nx6+QHyaDfjk3+KfZUC1GrIGzvOd/L2v/sxZ2+BX82Ru7mz+Iz/eHfclt4fqEDO/Rv+0/n2qb84Zj0f935kLNHuxB/gYIZxWfLF4k9ooMP8tT6sGeInx/h/mG0Sfseauc8Dc7w3fiW+61xjPq6Dr57Md5mbFgbyTGwBlnJe/R9B37Ee3PZgLGg3Xh74rkZvb43Exfef/Z1afPGpKR1RffH+JHgv2pLsIw6MNVf2GfpZ6cu1ckPsbcfcEcye7z/w7f5ju9iHOd/O1xzfTifeZn2PeO3/+SvgDUJTr+ABAAAA==
   </data>
  </layer>
  <objectgroup name="Wege" width="32" height="32">
   <object name="1" type="Wegpunkt" x="962" y="417" width="28" height="157"/>
   <object name="1" type="Ankunft" x="924" y="486" width="22" height="20"/>
+  <object name="2" type="Wegpunkt" x="0" y="226" width="29" height="60"/>
+  <object name="2" type="Ankunft" x="54" y="249" width="26" height="23"/>
  </objectgroup>
 </map>
