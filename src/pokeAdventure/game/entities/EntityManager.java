@@ -17,7 +17,7 @@ public class EntityManager {
 	public EntityManager() {
 		personen = new ArrayList<Person>();
 		for (int i = 0; i < 100; i++) {
-			personen.add(new Person(new Vector2f(100, 100), SpriteManager.person));
+			personen.add(new Person(new Vector2f(150, 150), SpriteManager.person));
 		}
 	}
 

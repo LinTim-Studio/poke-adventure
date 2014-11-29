@@ -30,11 +30,11 @@
  </tileset>
  <layer name="Kachelebene 1" width="45" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WSw7DMAhEcaQcAO5/2HpRpJcJWc6iVZBQbfLxQIchEa+99t9W29f2Y3t+1x3reF/r9ZJ14XrJvS7MCZw8u7F1nHvmVpJzYu0wnl+y1/qm3KcYmW8/7zCeV8MvsXNP7pAPmr/DyE/Wag3xM+780PpmXP8rh7GmB7zizvUzrvzWPlTMacLM3iJ/n/qOHGaejDFXh7Gu1LpJ01hD7bWUdzi1ju+feku1l3GtO59vd2F+0gxyWTVt0hbqtVufdY6oZrCuio/zQ3nt7EHWTvGsIUbeT7PP3YPES1f9mGYe81KuO+cgz6PeKSbVN9ZTv61Yg9d+wz5anp21EA4AAA==
+   H4sIAAAAAAAAA+2WSw7DMAhEcaQcAO5/2HpRpJcJWc6iVZBQbfLxQIchEa+99t9W29f2Y3t+1x3reF/r9ZJ14XrJvS7MCZw8u7F1nHvmVpJzYu0wnl+y1/qm3KcYmW8/7zCeV8MvsXNP7pAPmr/DyE/Wag3xM+780PpmXP8rh7GmB7zizvUzrvzWPlTMacLM3iJ/n/qOHGaejDFXh7Gu1LpJ01hD7bWUdzi1ju+feku1l3GtO59vd2F+0gxyWTVt0hbqtVufdY6oZrCuio/zQ3nt7EHWTvGsIUbeT7PP3YPES1f9mGYe81KuO+cgz6PeKSbVN9ZTv61Yg9d+wz5anp21EA4AAA==
   </data>
  </layer>
  <objectgroup name="Wege" width="45" height="20">
   <object name="0" type="Ankunft" x="503" y="256" width="46" height="65"/>
-  <object name="0" type="Wegpunkt" x="508" y="342"/>
+  <object name="0" type="Wegpunkt" x="472" y="351" width="20" height="21"/>
  </objectgroup>
 </map>

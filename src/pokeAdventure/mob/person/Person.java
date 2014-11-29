@@ -15,6 +15,7 @@ public class Person extends Mob {
 
 	private Path path;
 	private float index;
+	private int cooldown = 0;
 
 	public Person(Vector2f pos, MehrfachBild bild) {
 		super(pos, bild);
@@ -22,6 +23,10 @@ public class Person extends Mob {
 
 	@Override
 	protected void updateLaufen(Input in, int delta, Karte map) {
+		if (cooldown > 0) {
+			cooldown -= delta;
+			return;
+		}
 
 		if (path != null) {
 			if (path.getLength() == (int) index) {
@@ -35,8 +40,14 @@ public class Person extends Mob {
 				index += a;
 			}
 		} else {
-			AStarPathFinder pathfinder = new AStarPathFinder(map, map.getHeight() * map.getWidth(), false);
-			path = pathfinder.findPath(this, map.getTileX(position.x), map.getTileY(position.y), rand.nextInt(map.getWidth()), rand.nextInt(map.getHeight()));
+			try {
+				AStarPathFinder pathfinder = new AStarPathFinder(map, map.getHeight() * map.getWidth(), false);
+				path = pathfinder.findPath(this, map.getTileX(position.x), map.getTileY(position.y), rand.nextInt(map.getWidth()), rand.nextInt(map.getHeight()));
+				if (path == null)
+					cooldown = 10000;
+			} catch (Exception e) {
+				cooldown = 1000000;
+			}
 			index = 0;
 		}
 
