@@ -1,5 +1,8 @@
 *.class
 
+# Für die java Version
+.classpath
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
