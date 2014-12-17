@@ -3,6 +3,7 @@ package pokeAdventure;
 import java.util.Random;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.AppGameContainer;
@@ -206,6 +207,11 @@ public class Main extends StateBasedGame {
 			container.setFullscreen(!container.isFullscreen());
 		}
 		mausVerstecken(container, delta);
+		
+		//Graphiken neu laden:
+		if (debug && container.getInput().isKeyPressed(Keyboard.KEY_BACK)) {
+			SpriteManager.load();
+		}
 	}
 
 	private static void mausVerstecken(GameContainer container, int delta) {
