@@ -2,7 +2,6 @@ package pokeAdventure.util;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -163,8 +162,7 @@ public class Karte extends TiledMapPlus implements TileBasedMap {
 	}
 
 	public void render(GameContainer container, Graphics g, Vector2f offset) {
-		g.setColor(Color.darkGray);
-		g.fillRect(0, 0, Main.getWidth(), Main.getHeight());
+		
 		// Wolken:
 		g.drawImage(SpriteManager.wolken, offset.x, offset.y);
 		for (int x = 0; x < wolkenPositionen.length; x++) {
